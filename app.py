@@ -1,10 +1,7 @@
 from flask import Flask
-from flask import redirect, render_template, request
+from os import getenv
 
 app = Flask(__name__)
+app.secret_key = getenv("SECRET_KEY")
 
 import routes
-
-@app.route("/")
-def index():
-    return render_template("index.html")
