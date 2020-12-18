@@ -1,46 +1,51 @@
 CREATE TABLE accounts (
-    id integer NOT NULL,
-    username varchar(20) NOT NULL UNIQUE,
-    password text NOT NULL,
-    admin boolean DEFAULT false,
-    visible integer DEFAULT 1,
-    picture_id integer
+    id SERIAL PRIMARY KEY,
+    username VARCHAR(20) NOT NULL UNIQUE,
+    password TEXT NOT NULL,
+    admin BOOLEAN DEFAULT false,
+    visible INTEGER DEFAULT 1,
+    picture_id INTEGER REFERENCES pictures
 );
 
 CREATE TABLE outcome_budgets (
-    id integer NOT NULL,
-    period date NOT NULL,
-    amount float NOT NULL,
-    category_id integer,
-    account_id integer
+    id SERIAL PRIMARY KEY,
+    period DATE NOT NULL,
+    amount FLOAT NOT NULL,
+    category_id INTEGER REFERENCES categories,
+    account_id INTEGER REFERENCES accounts
 );
 
 CREATE TABLE categories (
-    id integer NOT NULL,
-    name varchar(50) NOT NULL,
-    visible integer DEFAULT 1,
-    outcome boolean
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(50) NOT NULL,
+    visible INTEGER DEFAULT 1,
+    outcome BOOLEAN
 );
 
 CREATE TABLE pictures (
-    id integer NOT NULL,
-    data bytea NOT NULL,
-    visible integer DEFAULT 1
+    id SERIAL PRIMARY KEY,
+    data BYTEA NOT NULL,
+    visible INTEGER DEFAULT 1
 );
 
 CREATE TABLE stores (
-    id integer NOT NULL,
-    name varchar(50) NOT NULL,
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(50) NOT NULL,
     visible integer DEFAULT 1
 );
 
 CREATE TABLE transactions (
-    id integer NOT NULL,
-    description varchar(100),
-    amount double precision NOT NULL,
-    created_at timestamp without time zone,
-    visible integer DEFAULT 1 NOT NULL,
-    account_id integer,
-    picture_id integer,
-    category_id integer
+    id integer SERIAL PRIMARY KEY,
+    description VARCHAR(100),
+    amount FLOAT NOT NULL,
+    created_at TIMESTAMP,
+    visible INTEGER DEFAULT 1 NOT NULL,
+    account_id INTEGER REFERENCES accounts,
+    picture_id INTEGER REFERENCES pictures,
+    category_id INTEGER REFERENCES categories
+);
+
+CREATE TABLE categories_stores (
+    store_id INTEGER REFERENCES stores,
+    category_id INTEGER REFERENCES categories
 );
