@@ -35,7 +35,7 @@ CREATE TABLE stores (
 );
 
 CREATE TABLE transactions (
-    id integer SERIAL PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     description VARCHAR(100),
     amount FLOAT NOT NULL,
     created_at TIMESTAMP,
