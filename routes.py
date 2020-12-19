@@ -1,6 +1,7 @@
 from app import app
 from flask import redirect, render_template, request, session
 import accounts
+import category
 
 @app.route("/")
 def index():
@@ -32,3 +33,19 @@ def register():
 def logout():
     accounts.logout()
     return redirect("/")
+
+@app.route("/categories", methods=["GET","POST"])
+def category_view():
+    if request.method == "GET":
+        incomes = category.income_categories()
+        outcomes = category.outcome_categories()
+        return render_template("categories.html",incomes = incomes, outcomes = outcomes)
+    if request.method == "POST":
+        name = request.form["name"]
+        outcome = request.form["outcome"]
+        if category.add_category(name,outcome):
+            return redirect("/categories")
+        else:
+            return render_template("categories.html",error_message="Kategorian lisääminen ei onnistunut")
+
+    
