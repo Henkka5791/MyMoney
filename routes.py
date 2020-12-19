@@ -48,4 +48,9 @@ def category_view():
         else:
             return render_template("categories.html",error_message="Kategorian lisääminen ei onnistunut")
 
-    
+@app.route("/categories/<int:id>",methods=["GET","POST"])
+def subcategory_view(id):
+    if request.method == "GET":
+        subcategory_list = category.subcategory_list(id)
+        name = category.category_name(id)
+        return render_template("subcategory.html", subcategory_list=subcategory_list, name=name)
