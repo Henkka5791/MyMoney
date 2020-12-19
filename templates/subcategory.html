@@ -1,0 +1,8 @@
+<h1>{{ name }} kategorian alakategoriat</h1>
+<p><b>Alakategoriat:</b></p>
+<hr>
+<ul>
+{% for subcategory in subcategory_list %}
+<li>{{ subcategory[0] }}</li>
+{% endfor %}
+</ul>
