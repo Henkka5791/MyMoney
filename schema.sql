@@ -1,51 +1,54 @@
 CREATE TABLE accounts (
     id SERIAL PRIMARY KEY,
-    username VARCHAR(20) NOT NULL UNIQUE,
-    password TEXT NOT NULL,
+    username VARCHAR(20) NOT NULL UNIQUE CHECK (LENGTH(username) > 3),
+    password TEXT NOT NULL CHECK (LENGTH(password) > 5),
     admin BOOLEAN DEFAULT false,
-    visible INTEGER DEFAULT 1,
-    picture_id INTEGER REFERENCES pictures
+    visible INTEGER DEFAULT 1 NOT NULL
 );
 
-CREATE TABLE outcome_budgets (
+CREATE TABLE budgets (
     id SERIAL PRIMARY KEY,
     period DATE NOT NULL,
-    amount FLOAT NOT NULL,
-    category_id INTEGER REFERENCES categories,
-    account_id INTEGER REFERENCES accounts
+    amount FLOAT DEFAULT 0 NOT NULL CHECK (amount >=0),
+    category_id INTEGER REFERENCES categories NOT NULL
 );
 
 CREATE TABLE categories (
     id SERIAL PRIMARY KEY,
     name VARCHAR(50) NOT NULL,
-    visible INTEGER DEFAULT 1,
-    outcome BOOLEAN
+    visible INTEGER DEFAULT 1 NOT NULL,
+    outcome BOOLEAN,
+    account_id INTEGER REFERENCES accounts NOT NULL,
+    picture_id INTEGER REFERENCES pictures
 );
 
 CREATE TABLE pictures (
     id SERIAL PRIMARY KEY,
     data BYTEA NOT NULL,
-    visible INTEGER DEFAULT 1
+    visible INTEGER DEFAULT 1 NOT NULL
 );
 
 CREATE TABLE stores (
     id SERIAL PRIMARY KEY,
     name VARCHAR(50) NOT NULL,
-    visible integer DEFAULT 1
+    visible integer DEFAULT 1 NOT NULL,
+    transactions_id INTEGER REFERENCES transactions NOT NULL
 );
 
 CREATE TABLE transactions (
     id SERIAL PRIMARY KEY,
     description VARCHAR(100),
-    amount FLOAT NOT NULL,
-    created_at TIMESTAMP,
+    amount FLOAT NOT NULL CHECK (amount >= 0),
+    created_at TIMESTAMP NOT NULL,
     visible INTEGER DEFAULT 1 NOT NULL,
-    account_id INTEGER REFERENCES accounts,
     picture_id INTEGER REFERENCES pictures,
-    category_id INTEGER REFERENCES categories
+    category_id INTEGER REFERENCES categories NOT NULL
 );
 
-CREATE TABLE categories_stores (
-    store_id INTEGER REFERENCES stores,
-    category_id INTEGER REFERENCES categories
+CREATE TABLE subcategories (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(50) NOT NULL,
+    visible INTEGER DEFAULT 1 NOT NULL,
+    category_id INTEGER REFERENCES categories NOT NULL
 );
+
