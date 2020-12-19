@@ -1,0 +1,17 @@
+<h1>Kategoriat</h1>
+<form action="/categories" method="POST">
+<p>Kategorian nimi:</p><br>
+<input type="text" name="name">
+<input type="radio" name="outcome" value="0">Tulo
+<input type="radio" name="outcome" value="1">Meno
+<input type="submit" value="Lisää kategoria">
+</form>
+<hr>
+<p><b>Tulolajit:</b></p>
+{% for income in incomes %}
+{{ income[0] }}
+{% endfor %}
+<p><b>Menolajit:</b></p>
+{% for outcome in outcomes %}
+{{ outcome[0] }}
+{% endfor %}
