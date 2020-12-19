@@ -17,7 +17,7 @@ CREATE TABLE categories (
     id SERIAL PRIMARY KEY,
     name VARCHAR(50) NOT NULL,
     visible INTEGER DEFAULT 1 NOT NULL,
-    outcome BOOLEAN,
+    outcome INTEGER NOT NULL,
     account_id INTEGER REFERENCES accounts NOT NULL,
     picture_id INTEGER REFERENCES pictures
 );
