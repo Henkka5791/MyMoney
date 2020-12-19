@@ -5,7 +5,7 @@ def income_categories():
     account_id = accounts.user_id()
     visible = 1
     outcome = 0
-    sql = "SELECT name FROM categories WHERE account_id=:account_id AND visible=:visible AND outcome=:outcome"
+    sql = "SELECT id,name FROM categories WHERE account_id=:account_id AND visible=:visible AND outcome=:outcome"
     result = db.session.execute(sql, {"account_id":account_id,"visible":visible,"outcome":outcome})
     categories_income = result.fetchall()
     return categories_income
@@ -14,7 +14,7 @@ def outcome_categories():
     account_id = accounts.user_id()
     visible = 1
     outcome = 1
-    sql = "SELECT name FROM categories WHERE account_id=:account_id AND visible=:visible AND outcome=:outcome"
+    sql = "SELECT id,name FROM categories WHERE account_id=:account_id AND visible=:visible AND outcome=:outcome"
     result = db.session.execute(sql, {"account_id":account_id,"visible":visible,"outcome":outcome})
     categories_outcome = result.fetchall()
     return categories_outcome
@@ -28,3 +28,18 @@ def add_category(name,outcome):
         return True
     except:
         return False
+
+def subcategory_list(id):
+    visible = 1
+    category_id = id
+    sql = "SELECT id, name FROM subcategories WHERE category_id=:category_id AND visible=:visible"
+    result = db.session.execute(sql,{"category_id":category_id, "visible":visible})
+    subcategories = result.fetchall()
+    return subcategories
+
+def category_name(id):
+    visible = 1
+    sql = "SELECT name FROM categories WHERE id=:id AND visible=:visible"
+    result = db.session.execute(sql,{"id":id,"visible":visible})
+    name = result.fetchone()[0]
+    return name 
