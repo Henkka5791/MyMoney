@@ -2,7 +2,8 @@
 {% if session.user_id %}
 <p>Olet kirjautunut nimellä {{ username }}</p><br>
 <p>Kirjaudu <a href="/logout">ulos</a></p>
-<a href="/categories">Kategoriat</a>
+<a href="/categories">Kategoriat</a><br>
+<a href="/transactions">Tapahtuman lisäys</a>
 {% else %}
 <form action="/login" method="POST">
 <p>Tunnus:<br>
