@@ -42,4 +42,13 @@ def category_name(id):
     sql = "SELECT name FROM categories WHERE id=:id AND visible=:visible"
     result = db.session.execute(sql,{"id":id,"visible":visible})
     name = result.fetchone()[0]
-    return name 
+    return name
+
+def add_subcategory(name,category_id):
+    try:
+        sql = "INSERT INTO subcategories(name,category_id) VALUES (:name,:category_id)"
+        db.session.execute(sql,{"name":name,"category_id":category_id})
+        db.session.commit()
+        return True
+    except:
+        return False
