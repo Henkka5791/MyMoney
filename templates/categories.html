@@ -8,10 +8,23 @@
 </form>
 <hr>
 <p><b>Tulolajit:</b></p>
+<ul>
 {% for income in incomes %}
-<a href="/categories/{{ income[0] }}">{{ income[1] }}</a><br>
+<li><a href="/categories/{{ income[0] }}">{{ income[1] }}</a><br>
+<form action="/categories/{{ income[0] }}/remove" method="POST">
+<input type="Submit" value="Poista kategoria">
+</form>
+</li>
 {% endfor %}
+</ul>
 <p><b>Menolajit:</b></p>
+<ul>
 {% for outcome in outcomes %}
+<li>
 <a href="/categories/{{ outcome[0] }}">{{ outcome[1] }}</a><br>
+<form action="/categories/{{ outcome[0] }}/remove" method="POST">
+    <input type="Submit" value="Poista kategoria">
+</form>
+</li>
 {% endfor %}
+</ul>
