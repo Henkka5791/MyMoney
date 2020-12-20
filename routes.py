@@ -60,4 +60,17 @@ def subcategory_view(id):
         if category.add_subcategory(name,category_id):
             return redirect("/categories/"+str(id))
         else:
-            return render_template("error.html", message="Alakategorian lisäy ei onnistunut")
+            return render_template("error.html", error="Alakategorian lisäy ei onnistunut")
+
+@app.route("/categories/<int:id>/remove",methods=["POST"])
+def category_remove(id):
+    if category.category_remove(id):
+        return redirect("/categories")
+    return render_template("error.html", error="Kategorian poisto ei onnistunut")
+
+@app.route("/categories/<int:id>/<int:sub_id>",methods=["POST"])
+def subcategory_remove(id,sub_id):
+    if category.subcategory_remove(sub_id):
+        return redirect("/categories/"+str(id))
+    else:
+        return render_template("error.html", error="Alakategorian poisto ei onnistunut")
