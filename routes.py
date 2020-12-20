@@ -53,4 +53,11 @@ def subcategory_view(id):
     if request.method == "GET":
         subcategory_list = category.subcategory_list(id)
         name = category.category_name(id)
-        return render_template("subcategory.html", subcategory_list=subcategory_list, name=name)
+        return render_template("subcategory.html", subcategory_list=subcategory_list, name=name, id=id)
+    if request.method == "POST":
+        name = request.form["name"]
+        category_id = id
+        if category.add_subcategory(name,category_id):
+            return redirect("/categories/"+str(id))
+        else:
+            return render_template("error.html", message="Alakategorian lisäy ei onnistunut")
