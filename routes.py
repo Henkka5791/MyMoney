@@ -74,3 +74,15 @@ def subcategory_remove(id,sub_id):
         return redirect("/categories/"+str(id))
     else:
         return render_template("error.html", error="Alakategorian poisto ei onnistunut")
+
+@app.route("/transactions", methods=["GET","POST"])
+def transaction_view():
+    if request.method == "GET":
+        categories_subcategories = category.category_subcategory_list_all()
+        return render_template("transactions.html",categories_subcategories = categories_subcategories)
+    if request.method == "POST":
+        name = request.form["category_subcategory"]
+        amount = request.form["amount"]
+        description = request.form["description"]
+        print(amount,name,description)
+        return redirect("/transactions")
