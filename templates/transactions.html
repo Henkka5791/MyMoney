@@ -1,0 +1,13 @@
+<form action="/transactions" method="POST">
+Summa:
+<input type="TEXT" name="amount"><br>
+Kategoria:
+<select name="category_subcategory">
+{% for category_subcategory in categories_subcategories %}
+<option value="{{ category_subcategory[2] }}">{{ category_subcategory[0] }}: {{ category_subcategory[1] }}</option>
+{% endfor %}
+</select><br>
+Lisätietoja:
+<input type="TEXT" name="description"><br>
+<input type="submit" value="Tallenna">
+</form>
