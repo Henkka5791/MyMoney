@@ -52,3 +52,23 @@ def add_subcategory(name,category_id):
         return True
     except:
         return False
+
+def category_remove(id):
+    visible = 0
+    try:
+        sql = "UPDATE categories SET visible=:visible WHERE id=:id"
+        db.session.execute(sql,{"visible":visible,"id":id})
+        db.session.commit()
+        return True
+    except:
+        return False
+
+def subcategory_remove(id):
+    visible = 0
+    try:
+        sql = "UPDATE subcategories SET visible=:visible WHERE id=:id"
+        db.session.execute(sql,{"visible":visible,"id":id})
+        db.session.commit()
+        return True
+    except:
+        return False
