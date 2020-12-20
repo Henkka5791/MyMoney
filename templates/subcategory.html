@@ -1,8 +1,13 @@
 <h1>{{ name }} kategorian alakategoriat</h1>
-<p><b>Alakategoriat:</b></p>
+<form action="/categories/{{ id }}" method="POST">
+<p>Alakategoria:
+<input type="text" name="name"></p>
+<input type="submit" value="Lisää alakategoria">
+</form>
 <hr>
+<p><b>Alakategoriat:</b></p>
 <ul>
 {% for subcategory in subcategory_list %}
-<li>{{ subcategory[0] }}</li>
+<li>{{ subcategory[1] }}</li>
 {% endfor %}
 </ul>
