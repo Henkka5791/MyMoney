@@ -11,3 +11,6 @@ Lisätietoja:
 <input type="TEXT" name="description"><br>
 <input type="submit" value="Tallenna">
 </form>
+{% for transaction in transactions_list %}
+{{ transaction[0] }} {{ transaction[1] }} {{ transaction[2] }}<br>
+{% endfor %}
