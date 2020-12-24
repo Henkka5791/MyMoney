@@ -1,3 +1,4 @@
+<a href="/">kotiin</a>
 <form action="/transactions" method="POST">
 Summa:
 <input type="TEXT" name="amount"><br>
@@ -11,6 +12,24 @@ Lisätietoja:
 <input type="TEXT" name="description"><br>
 <input type="submit" value="Tallenna">
 </form>
-{% for transaction in transactions_list %}
-{{ transaction[0] }} {{ transaction[1] }} {{ transaction[2] }}<br>
-{% endfor %}
+<table>
+    <tr>
+        <th>Aika</th>
+        <th>Summa</th>
+        <th>Kategoria</th>
+        <th>Alakategoria</th>
+        <th>Lisätietoja</th>
+        <th>Muokkaa</th>
+        <th>Poista</th>
+    </tr>
+    {% for transaction in transactions_list %}
+    <tr>
+        <th>{{ transaction[0].strftime("%d.%m.%Y %H:%M") }}</th>
+        <th>{{ transaction[1] }} €</th> 
+        <th>{{ transaction[2] }}</th>  
+        <th>{{ transaction[3] }}</th>
+        <th>{{ transaction[4] }}</th>
+        <th><form action="/transactions/{{ transaction[5] }}" type ="GET"><input type="submit" value="muokkaa"></form></th>
+    </tr>
+    {% endfor %}
+</table>
