@@ -1,0 +1,14 @@
+Tapahtuman aika: {{ transaction[0].strftime("%d.%m.%Y %H:%M") }}<br>
+<form action="/transactions/{{ transaction[3] }}" method="POST">
+    Summa:
+    <input type="TEXT" value="{{ transaction[1] }}" name="amount"><br>
+    Kategoria:
+    <select value="{{ transaction[4] }}: {{ transaction[5] }}" name="category_subcategory">
+    {% for category_subcategory in categories_subcategories %}
+    <option value="{{ category_subcategory[2] }}">{{ category_subcategory[0] }}: {{ category_subcategory[1] }}</option>
+    {% endfor %}
+    </select><br>
+    Lisätietoja:
+    <input type="TEXT" value="{{ transaction[2] }}" name="description"><br>
+    <input type="submit" value="Tallenna">
+</form>
