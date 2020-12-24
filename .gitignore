@@ -3,3 +3,4 @@ __pycache__
 venv
 ..env.swp
 sql_plan.txt
+.sql_plan.txt.swp
