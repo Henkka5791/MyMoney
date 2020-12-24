@@ -76,7 +76,7 @@ def subcategory_remove(id,sub_id):
         return render_template("error.html", error="Alakategorian poisto ei onnistunut")
 
 @app.route("/transactions", methods=["GET","POST"])
-def transaction_view():
+def transactions_view():
     if request.method == "GET":
         categories_subcategories = categories.category_subcategory_list_all()
         transactions_list = transactions.list()
@@ -89,4 +89,11 @@ def transaction_view():
             return redirect("/transactions")
         else:
             return render_template("error.html", error="Tapahtuman lisäys ei onnistunut")
-        
+
+@app.route("/transactions/<int:id>", methods=["GET","POST"])
+def transaction_edit(id):
+    if request.method == "GET":
+        transaction = transactions.view_one(id)
+        category_subcategory = categories.category_subcategory_list_all()
+        return render_template("transaction_single.html",transaction = transaction,category_subcategory=category_subcategory)
+
