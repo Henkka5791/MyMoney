@@ -29,9 +29,27 @@ def is_outcome(subcategory_id):
     return False
 
 def view_one(id):
-    print(id)
     sql = "SELECT t.created_at,t.amount,t.description,t.id,c.name,s.name,p.data FROM categories c, subcategories s,transactions t LEFT JOIN pictures p ON p.id=t.picture_id WHERE t.id=:id AND t.subcategory_id=s.id AND c.id = s.category_id"
     result = db.session.execute(sql,{"id":id})
     transaction = result.fetchone()
     print(transaction[0])
     return transaction 
+
+def update(subcategory_id,amount,description,id):
+    try:
+        sql = "UPDATE transactions SET description=:description, amount=:amount, subcategory_id=:subcategory_id WHERE id=:id"
+        result = db.session.execute(sql,{"description":description,"amount":amount,"subcategory_id":subcategory_id,"id":id})
+        db.session.commit()
+        return True
+    except:
+        return False
+
+def remove(id):
+    visible = 0
+    try:
+        sql="UPDATE transactions SET visible=:visible WHERE id=:id"
+        resul = db.session.execute(sql,{"visible":visible,"id":id})
+        db.session.commit()
+        return True
+    except:
+        return False
