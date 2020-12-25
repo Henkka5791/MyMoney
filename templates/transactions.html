@@ -4,6 +4,7 @@ Summa:
 <input type="TEXT" name="amount"><br>
 Kategoria:
 <select name="category_subcategory">
+<option value="" selected disable hidden>Valitse Kategoria</option>
 {% for category_subcategory in categories_subcategories %}
 <option value="{{ category_subcategory[2] }}">{{ category_subcategory[0] }}: {{ category_subcategory[1] }}</option>
 {% endfor %}
@@ -29,7 +30,8 @@ Lisätietoja:
         <th>{{ transaction[2] }}</th>  
         <th>{{ transaction[3] }}</th>
         <th>{{ transaction[4] }}</th>
-        <th><form action="/transactions/{{ transaction[5] }}" type ="GET"><input type="submit" value="muokkaa"></form></th>
+        <th><form action="/transactions/{{ transaction[5] }}" type ="GET"><input type="submit" value="Muokkaa"></form></th>
+        <th><form action="/transactions/{{ transaction[5] }}/remove" type ="POST"><input type="submit" value="Poista"></form></th>
     </tr>
     {% endfor %}
 </table>
