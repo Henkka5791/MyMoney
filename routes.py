@@ -94,6 +94,20 @@ def transactions_view():
 def transaction_edit(id):
     if request.method == "GET":
         transaction = transactions.view_one(id)
-        category_subcategory = categories.category_subcategory_list_all()
-        return render_template("transaction_single.html",transaction = transaction,category_subcategory=category_subcategory)
+        categories_subcategories = categories.category_subcategory_list_all()
+        return render_template("transaction_single.html",transaction = transaction,categories_subcategories=categories_subcategories)
+    if request.method == "POST":      
+        subcategory_id = request.form["category_subcategory"]
+        amount = request.form["amount"]
+        description = request.form["description"]
+        if transactions.update(subcategory_id,amount,description,id):
+            return redirect("/transactions")
+        else:
+            return render_template("error.html", error="Tapahtuman muokkaus ei onnistunut")
 
+@app.route("/transactions/<int:id>/remove",methods=["GET","POST"])
+def transaction_remove(id):
+    if transactions.remove(id):
+        return redirect("/transactions")
+    else:
+        return render_template("error.html", error="Tapahtuman poistaminen ei onnistunut")
