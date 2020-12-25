@@ -3,7 +3,8 @@ Tapahtuman aika: {{ transaction[0].strftime("%d.%m.%Y %H:%M") }}<br>
     Summa:
     <input type="TEXT" value="{{ transaction[1] }}" name="amount"><br>
     Kategoria:
-    <select value="{{ transaction[4] }}: {{ transaction[5] }}" name="category_subcategory">
+    <select name="category_subcategory">
+    <option value="" selected disable hidden>Valitse Kategoria</option>
     {% for category_subcategory in categories_subcategories %}
     <option value="{{ category_subcategory[2] }}">{{ category_subcategory[0] }}: {{ category_subcategory[1] }}</option>
     {% endfor %}
