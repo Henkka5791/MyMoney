@@ -1,5 +1,5 @@
 from db import db
-import accounts
+import accounts,budgets
 
 def income_categories():
     account_id = accounts.user_id()
@@ -38,8 +38,15 @@ def category_subcategory_list_all():
 def add_category(name,outcome):
     account_id = accounts.user_id()
     try:
-        sql = "INSERT INTO categories (name, outcome, account_id) VALUES (:name,:outcome,:account_id)"
-        db.session.execute(sql,{"name":name,"outcome":outcome,"account_id":account_id})
+        sql = "INSERT INTO categories (name, outcome, account_id) VALUES (:name,:outcome,:account_id) RETURNING ID"
+        result = db.session.execute(sql,{"name":name,"outcome":outcome,"account_id":account_id})
+        category_id = result.fetchone()[0]
+        years = budgets.budget_years()
+        for year in years:
+            year = int(year[0])
+            if budgets.category_not_in_budget(year,category_id):
+                print("Ei budjetissa")
+                budgets.budget_add_category(year,category_id)
         db.session.commit()
         return True
     except:
