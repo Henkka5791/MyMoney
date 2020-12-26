@@ -20,10 +20,10 @@ def outcome_categories():
     return categories_outcome
 
 def category_list():
-    id = accounts.user_id()
+    account_id = accounts.user_id()
     visible = 1
-    sql = "SELECT id,name FROM categories WHERE id=:id AND visible=:visible"
-    result = db.session.execute(sql, {"id":id,"visible":visible})
+    sql = "SELECT id,name FROM categories WHERE account_id=:account_id AND visible=:visible"
+    result = db.session.execute(sql, {"account_id":account_id,"visible":visible})
     categories = result.fetchall()
     return categories
 
