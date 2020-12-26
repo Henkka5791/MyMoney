@@ -2,10 +2,7 @@ from db import db
 import accounts
 
 def add(subcategory_id,amount,description):
-    amount = float(amount)
-    if is_outcome(subcategory_id):
-        amount = -1*amount
-    print(subcategory_id,amount,description)
+    amount = amount_validate(amount,subcategory_id)
     try:
         sql = "INSERT INTO transactions(description,amount,created_at,subcategory_id) VALUES(:description, :amount, NOW(),:subcategory_id)"
         db.session.execute(sql, {"description":description,"amount":amount,"subcategory_id":subcategory_id})
@@ -36,6 +33,7 @@ def view_one(id):
     return transaction 
 
 def update(subcategory_id,amount,description,id):
+    amount = amount_validate(amount,subcategory_id)
     try:
         sql = "UPDATE transactions SET description=:description, amount=:amount, subcategory_id=:subcategory_id WHERE id=:id"
         result = db.session.execute(sql,{"description":description,"amount":amount,"subcategory_id":subcategory_id,"id":id})
@@ -53,3 +51,15 @@ def remove(id):
         return True
     except:
         return False
+
+def amount_validate(amount,subcategory_id):
+    amount = amount.replace(",",".")
+    amount = amount.replace("-","")
+    try:
+        amount_float = float(amount)
+        amount_float = round(amount_float,2)
+        if is_outcome(subcategory_id):
+            amount_float = -1*amount_float
+        return amount_float
+    except:
+        return amount
