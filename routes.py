@@ -1,7 +1,7 @@
 from app import app
 from flask import redirect, render_template, request, session
 import accounts
-import categories, transactions
+import categories, transactions, budgets
 
 @app.route("/")
 def index():
@@ -111,3 +111,15 @@ def transaction_remove(id):
         return redirect("/transactions")
     else:
         return render_template("error.html", error="Tapahtuman poistaminen ei onnistunut")
+
+@app.route("/budgets",methods=["GET","POST"])
+def budget_create():
+    if request.method == "GET":
+        years = budgets.budget_years()
+        return render_template("budgets.html",years=years)
+    if request.method == "POST":
+        year = request.form["year"]
+        if budgets.create_budget(year):
+            return redirect("/budgets")
+        else:
+            return render_template("error.html", error="Budjetin luonti ei onnistunut")
