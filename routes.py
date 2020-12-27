@@ -123,3 +123,18 @@ def budget_create():
             return redirect("/budgets")
         else:
             return render_template("error.html", error="Budjetin luonti ei onnistunut")
+
+@app.route("/budgets/<int:year>",methods=["GET","POST"])
+def budget_edit(year):
+    if request.method == "GET":
+        year_budget = budgets.budget_list(year)
+        return render_template("budget_year.html",year=year,year_budget=year_budget)
+    if request.method == "POST":
+        budget_ids = request.form.getlist("budget_id")
+        amounts = request.form.getlist("amount")
+        print("budget_ids: "+str(len(budget_ids))+"amounts: "+str(len(amounts)))
+        if budgets.budget_update(budget_ids,amounts):
+            year = int(year)
+            return redirect("/budgets/"+str(year))
+        else:
+            return render_template("error.html", error="Budjetin päivittäminen ei onnistunut")
