@@ -128,7 +128,8 @@ def budget_create():
 def budget_edit(year):
     if request.method == "GET":
         year_budget = budgets.budget_list(year)
-        return render_template("budget_year.html",year=year,year_budget=year_budget)
+        sums = budgets.budget_sum(year)
+        return render_template("budget_year.html",year=year,year_budget=year_budget,sums=sums)
     if request.method == "POST":
         budget_ids = request.form.getlist("budget_id")
         amounts = request.form.getlist("amount")
