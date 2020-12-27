@@ -1,0 +1,35 @@
+
+
+<a href="/">Kotiin</a>
+<h1>Vuoden {{ year }} budjetti</h1>
+<form action="/budgets/{{ year }}" method="POST">
+<table id="budget">
+    <tr>
+        <th>Kategoria</th>
+        <th>Budjetti</th>
+        <th>Kuukausi</th>
+        <th>Uusi budjetti</th>
+    </tr>
+    {% for budget in year_budget %}
+    <tr>
+        <th>{{ budget[0] }}</th>
+        <th>{{ budget[1] }}</th>
+        <th>{{ budget[2]|int }}</th>
+        <th><input type="TEXT" value="0" name="amount"></th>
+        <th><input type="HIDDEN" value="{{ budget[3] }}" name="budget_id"></th>
+    </tr>
+    {% endfor %}
+</table>
+<input type="submit" value="Tallenna">
+</form>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> 
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+<script type="text/javascript" src="{{url_for('static', filename='paging.js')}}"></script> 
+<script type="text/javascript">
+            $(document).ready(function() {
+                $('#budget').paging({limit:13});
+            });
+        </script>
+        <script type="text/javascript">
+
+
