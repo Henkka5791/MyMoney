@@ -3,7 +3,7 @@ Luo uusi budjetti vuodelle: <input type="TEXT" name="year">
 <input type="Submit" value="Luo">
 </form>
 {% for year in years %}
-<form action="/budgets/{{ year[0] }}" method="GET">
+<form action="/budgets/{{ year[0]|int }}" method="GET">
 <input type="Submit" value="Muokkaa vuoden {{ year[0]|int }} budjettia">
 </form>
 {% endfor %}
