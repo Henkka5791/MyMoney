@@ -65,3 +65,11 @@ def budget_update(ids,amounts):
         return True
     except:
         return False
+
+def budget_sum(budget_year):
+    account_id = accounts.user_id()
+    visible = 1
+    sql = "SELECT c.name,sum(b.amount) FROM categories c, budgets b WHERE c.account_id=:account_id AND b.category_id=c.id AND c.visible=:visible AND extract(year FROM b.period)=:budget_year GROUP BY 1"
+    result = db.session.execute(sql,{"account_id":account_id,"visible":visible,"budget_year":budget_year})
+    sums = result.fetchall()
+    return sums
