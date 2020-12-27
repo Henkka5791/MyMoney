@@ -2,6 +2,14 @@
 
 <a href="/">Kotiin</a>
 <h1>Vuoden {{ year }} budjetti</h1>
+<table>
+    {% for sum in sums %}
+    <tr>
+        <th>{{ sum[0]}}: {{ sum[1] }}</th>
+    </tr>
+    {% endfor %}
+</table>
+<br>
 <form action="/budgets/{{ year }}" method="POST">
 <table id="budget">
     <tr>
