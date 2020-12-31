@@ -4,3 +4,5 @@ venv
 ..env.swp
 sql_plan.txt
 .sql_plan.txt.swp
+static/.Rhistory
+templates/{{ url_for('static', filename='min.css') }}
