@@ -48,7 +48,7 @@ def budget_list(year):
     account_id = accounts.user_id()
     period_start = str(year)+"-"+"1"+"-"+"1"
     period_end = str(year)+"-"+"12"+"-"+"2"
-    sql = "SELECT c.name,b.amount,extract(month FROM b.period) AS month,b.id FROM categories c, budgets b WHERE c.account_id=:account_id AND c.id=b.category_id AND b.period>=:period_start AND b.period<:period_end"
+    sql = "SELECT c.name,b.amount,extract(month FROM b.period) AS month,b.id FROM categories c, budgets b WHERE c.account_id=:account_id AND c.id=b.category_id AND b.period>=:period_start AND b.period<:period_end ORDER BY c.name,month ASC"
     result = db.session.execute(sql,{"account_id":account_id,"period_start":period_start,"period_end":period_end})
     budgets = result.fetchall()
     return budgets
