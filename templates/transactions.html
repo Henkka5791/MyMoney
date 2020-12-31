@@ -1,18 +1,28 @@
-<a href="/">kotiin</a>
-<form action="/transactions" method="POST">
-Summa:
-<input type="TEXT" name="amount"><br>
-Kategoria:
-<select name="category_subcategory">
-<option value="" selected disable hidden>Valitse Kategoria</option>
-{% for category_subcategory in categories_subcategories %}
-<option value="{{ category_subcategory[2] }}">{{ category_subcategory[0] }}: {{ category_subcategory[1] }}</option>
-{% endfor %}
-</select><br>
-Lisätietoja:
-<input type="TEXT" name="description"><br>
-<input type="submit" value="Tallenna">
-</form>
+{% extends 'layout.html' %}
+
+{% block header %}
+  <h1>{% block title %}Lisää tapahtuma{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class=""
+    <form action="/transactions" method="POST">
+        Summa:
+        <input type="TEXT" name="amount"><br>
+        Kategoria:
+        <select name="category_subcategory">
+        <option value="" selected disable hidden>Valitse Kategoria</option>
+        {% for category_subcategory in categories_subcategories %}
+        <option value="{{ category_subcategory[2] }}">{{ category_subcategory[0] }}: {{ category_subcategory[1] }}</option>
+        {% endfor %}
+        </select><br>
+        Lisätietoja:
+        <input type="TEXT" name="description"><br>
+        <input type="submit" value="Tallenna">
+        </form>
+</div>
+
 <table>
     <tr>
         <th>Aika</th>
@@ -35,3 +45,4 @@ Lisätietoja:
     </tr>
     {% endfor %}
 </table>
+{% endblock %}
