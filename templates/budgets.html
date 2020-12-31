@@ -5,20 +5,22 @@
   <h1>{% block title %}Budjetit{% endblock %}</h1>
 {% endblock %}
 
-<div class="container">
+<div class="container-fluid">
     {% block content %}
     <div class="row border-bottom">
-        <div class="col-sm-6 text-right border-right p-2">
-            <form action="/budgets" method="POST" class="justify-content-right">
+        <div class="col text-center border-right p-2">
+            <form action="/budgets" method="POST" class="justify-content-center">
             Luo uusi budjetti vuodelle:<br> 
-            <input class="form-control-sm w-25 float-right" type="TEXT" name="year">
+            <input class="form-control-sm w-5 float-center" type="TEXT" name="year">
             <input class="btn btn-outline-secondary btn-sm" type="Submit" value="Luo">
             </form>
         </div>
-        <div class="col-sm-6 p-2">
+    </div>
+    <div class="row border-bottom">
+        <div class="col p-2 text-center">
                 {% for year in years %}
                 <form action="/budgets/{{ year[0]|int }}" method="GET">
-                <input class="btn btn-outline-secondary btn-sm" type="Submit" value="Muokkaa vuoden {{ year[0]|int }} budjettia">
+                <input class="btn btn-outline-secondary btn-sm float-center" type="Submit" value="Muokkaa vuoden {{ year[0]|int }} budjettia">
                 </form><br>
                 {% endfor %}
         </div>
