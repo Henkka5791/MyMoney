@@ -1,7 +1,7 @@
 from app import app
 from flask import redirect, render_template, request, session
 import accounts
-import categories, transactions, budgets
+import categories, transactions, budgets,summary
 
 @app.route("/")
 def index():
@@ -139,3 +139,9 @@ def budget_edit(year):
             return redirect("/budgets/"+str(year))
         else:
             return render_template("error.html", error="Budjetin päivittäminen ei onnistunut")
+
+@app.route("/summary",methods=["GET","POST"])
+def summary_result():
+    if request.method == "GET":
+        monthly_result = summary.monthly(1,12,2020,2020)
+        return render_template("summary.html",monthly_result=monthly_result)
