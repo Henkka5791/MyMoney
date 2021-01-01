@@ -7,72 +7,57 @@
   <h1>{% block title %}Vuoden {{ year }} budjetti{% endblock %}</h1>
 {% endblock %}
 
-{% block content %}
-<div class="content-fluid">
-    <div class="row border-bottom">
-        <div class="col border-right text-right">
-            <h2 class="text-secondary">Yhteensä</h2>
-        </div>
-        <div class="col">
-            <h2 class="text-secondary">Muokkaa</h2>
-        </div>
-    </div>
-</div>
-<div class="content-fluid">
-    <div class="row border-bottom">
-        <div class="col p-2 border-right">
-            <table class="table table-striped table-bordered w-auto table-sm float-right text-secondary">
-                <thead>
-                    <tr>
-                        <th text-secondary>Kategoria</th>
-                        <th>Budjetti €</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for sum in sums %}
-                    <tr>
-                        <td>{{ sum[0]}}</td>
-                        <td>{{ sum[1] }}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-        <div class="col p-2">
-            <form action="/budgets/{{ year }}" method="POST">
-                
-            <table id="budget" class="table table-striped table-bordered w-auto table-sm text-secondary" 
-                data-pagination="true" 
-                data-toggle="table"
-                data-page-size=12
-                data-pagination-h-align='left'
-                data-pagination-parts=['pageList']
-                data-buttons-class="secondary">
-                <thead>
-                    <tr>
-                        <th data-sortable="true">Kategoria</th>
-                        <th data-sortable="true">Budjetti €</th>
-                        <th data-sortable="true">Kuukausi (1-12)</th>
-                        <th>Uusi budjetti</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for budget in year_budget %}   
-                    <tr>
-                        <td>{{ budget[0] }}</td>
-                        <td>{{ budget[1] }}</td>
-                        <td class="text-center">{{ budget[2]|int }}</td>
-                        <td><input class="w-5" type="TEXT" value="{{ budget[1] }}" name="amount">
-                        <input type="HIDDEN" value="{{ budget[3] }}" name="budget_id"></td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-            <input class="btn btn-outline-secondary btn-sm" type="submit" value="Tallenna muokattu">
-            </form>
-        </div>
-    </div>
-</div>
+{% block header_2 %}Yhteensä{% endblock %}
+{% block content_1 %}
+<table class="table table-striped table-bordered w-auto table-sm text-secondary">
+    <thead>
+        <tr>
+            <th text-secondary>Kategoria</th>
+            <th>Budjetti €</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for sum in sums %}
+        <tr>
+            <td>{{ sum[0] }}</td>
+            <td>{{ sum[1] }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
+{% block header_3 %}Muokkaa budjettia{% endblock %}
+{% block content_2 %}
+<form action="/budgets/{{ year }}" method="POST">           
+    <table id="budget" class="table table-striped table-bordered w-auto table-sm text-secondary" 
+        data-pagination="true" 
+        data-toggle="table"
+        data-page-size=12
+        data-pagination-h-align='left'
+        data-pagination-parts=['pageList']
+        data-buttons-class="secondary">
+        <thead>
+            <tr>
+                <th data-sortable="true">Kategoria</th>
+                <th data-sortable="true">Budjetti €</th>
+                <th data-sortable="true">Kuukausi (1-12)</th>
+                <th>Uusi budjetti</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for budget in year_budget %}   
+            <tr>
+                <td>{{ budget[0] }}</td>
+                <td>{{ budget[1] }}</td>
+                <td class="text-center">{{ budget[2]|int }}</td>
+                <td><input class="w-5" type="TEXT" value="{{ budget[1] }}" name="amount">
+                <input type="HIDDEN" value="{{ budget[3] }}" name="budget_id"></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <input class="btn btn-outline-secondary btn-sm" type="submit" value="Tallenna muokattu">
+</form>
 {% endblock %}
 {% block scripts %}
 <script>
