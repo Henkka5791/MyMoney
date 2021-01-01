@@ -1,31 +1,74 @@
-<h1>Kategoriat</h1>
-<a href="/">Kotiin</a>
+{% extends 'layout.html' %}
+
+{% block header %}
+  <h1>{% block title %}Kategoriat{% endblock %}</h1>
+{% endblock %}
+
+{% block header_2 %}Lisää{% endblock %}
+{% block content_1 %}
 <form action="/categories" method="POST">
-<p>Kategorian nimi:</p><br>
-<input type="text" name="name">
-<input type="radio" name="outcome" value="0">Tulo
-<input type="radio" name="outcome" value="1">Meno
-<input type="submit" value="Lisää kategoria">
+    <input type="text" name="name" value="Kategorian nimi" class="text-secondary">
+    <input type="radio" name="outcome" value="0"><span class="text-secondary">Tulo</span>
+    <input type="radio" name="outcome" value="1"><span class="text-secondary">Meno</span>
+    <input class="btn btn-outline-secondary btn-sm" type="submit" value="Lisää kategoria">
 </form>
-<hr>
-<p><b>Tulolajit:</b></p>
-<ul>
-{% for income in incomes %}
-<li><a href="/categories/{{ income[0] }}">{{ income[1] }}</a><br>
-<form action="/categories/{{ income[0] }}/remove" method="POST">
-<input type="Submit" value="Poista kategoria">
-</form>
-</li>
-{% endfor %}
-</ul>
-<p><b>Menolajit:</b></p>
-<ul>
-{% for outcome in outcomes %}
-<li>
-<a href="/categories/{{ outcome[0] }}">{{ outcome[1] }}</a><br>
-<form action="/categories/{{ outcome[0] }}/remove" method="POST">
-    <input type="Submit" value="Poista kategoria">
-</form>
-</li>
-{% endfor %}
-</ul>
+{% endblock %}
+
+{% block content_2 %}
+<div class="content">
+    <div class="row">
+        <div class="col">
+            <table>
+                <thead>
+                    <tr>
+                        <th><strong class="text-secondary">TULOT</strong></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for income in incomes %}
+                    <tr>
+                        <td class="text-secondary">{{ income[1] }}</td>
+                        <td><form action="/categories/{{ income[0] }}" method="GET">
+                                <input class="btn btn-outline-secondary btn-sm" type="Submit" value="Alakategoriat">
+                            </form>
+                        </td>
+                        <td><form action="/categories/{{ income[0] }}/remove" method="POST">
+                                <input class="btn btn-outline-secondary btn-sm" type="Submit" value="Poista">
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="col">
+            <table>
+                <thead>
+                    <tr>
+                        <th><strong class="text-secondary">MENOT</strong></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for outcome in outcomes %}
+                    <tr>
+                        <td class="text-secondary">{{ outcome[1] }}</td>
+                        <td><form action="/categories/{{ outcome[0] }}" method="GET">
+                                <input class="btn btn-outline-secondary btn-sm" type="Submit" value="Alakategoriat">
+                            </form>
+                        </td>
+                        <td><form action="/categories/{{ outcome[0] }}/remove" method="POST">
+                                <input class="btn btn-outline-secondary btn-sm" type="Submit" value="Poista">
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
