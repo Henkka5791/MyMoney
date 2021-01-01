@@ -1,29 +1,27 @@
 {% extends 'layout.html' %}
 
-
 {% block header %}
   <h1>{% block title %}Budjetit{% endblock %}</h1>
 {% endblock %}
 
-<div class="container-fluid">
-    {% block content %}
-    <div class="row border-bottom">
-        <div class="col text-center border-right p-2">
-            <form action="/budgets" method="POST" class="justify-content-center">
-            Luo uusi budjetti vuodelle:<br> 
-            <input class="form-control-sm w-5 float-center" type="TEXT" name="year">
-            <input class="btn btn-outline-secondary btn-sm" type="Submit" value="Luo">
-            </form>
-        </div>
+{% block header_2 %}Luo uusi{% endblock %}
+{% block content_1 %}
+<form action="/budgets" method="POST" class="justify-content-center">
+    <input class="form-control-sm w-5 float-center" type="TEXT" name="year" value="esim. 2020">
+    <input class="btn btn-outline-secondary btn-sm" type="Submit" value="Luo">
+</form>
+{% endblock %}
+{% block header_3 %}Muokkaa{% endblock %}
+{% block content_2 %}
+<div class="content">
+{% for year in years %}
+<div class="row">
+    <div class="col mb-1">
+    <form action="/budgets/{{ year[0]|int }}" method="GET">
+        <input class="btn btn-outline-secondary btn-sm float-center" type="Submit" value="Vuosi {{ year[0]|int }}">
+    </form>
     </div>
-    <div class="row border-bottom">
-        <div class="col p-2 text-center">
-                {% for year in years %}
-                <form action="/budgets/{{ year[0]|int }}" method="GET">
-                <input class="btn btn-outline-secondary btn-sm float-center" type="Submit" value="Muokkaa vuoden {{ year[0]|int }} budjettia">
-                </form><br>
-                {% endfor %}
-        </div>
-    </div>
-    {% endblock %}
 </div>
+{% endfor %}
+</div>
+{% endblock %}
