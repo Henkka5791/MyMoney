@@ -10,47 +10,44 @@
         <title>{% block title %}{% endblock %}</title>
     </head>
     <body class="bg-light">
-        
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
-            <button 
-                class="navbar-toggler" 
-                type="button" 
-                data-toggle="collapse" 
-                data-target="#navbarCenteredExample" 
-                aria-controls="navbarCenteredExample" 
-                aria-expanded="false" 
-                aria-label="Toggle navigation"
-            >
-              <i class="fas fa-bars"></i>
-            </button>
-            <div 
-                class="collapse navbar-collapse justify-content-center" 
-                id="navbarCenteredExample">
-              <ul class="navbar-nav mb-2 mb-lg-0">
-                <li class="nav-item active">
-                  <a class="nav-link active" aria-current="page" href="/">Home</a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link active" aria-current="page" href="/transactions">Transactions</a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link active" aria-current="page" href="/summary">Summary</a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link active" aria-current="page" href="/budgets">Budget</a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link active" aria-current="page" href="/categories">Categories</a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link active" aria-current="page" href="/logout">Log Out</a>
-                </li>
-              </ul>
-            </div>
+                <button 
+                    class="navbar-toggler" 
+                    type="button" 
+                    data-toggle="collapse" 
+                    data-target="#navbarCenteredExample" 
+                    aria-controls="navbarCenteredExample" 
+                    aria-expanded="false" 
+                    aria-label="Toggle navigation">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div 
+                    class="collapse navbar-collapse justify-content-center" 
+                    id="navbarCenteredExample">
+                <ul class="navbar-nav mb-2 mb-lg-0">
+                    <li class="nav-item active">
+                    <a class="nav-link active" aria-current="page" href="/">Home</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link active" aria-current="page" href="/transactions">Transactions</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link active" aria-current="page" href="/summary">Summary</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link active" aria-current="page" href="/budgets">Budget</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link active" aria-current="page" href="/categories">Categories</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link active" aria-current="page" href="/logout">Log Out</a>
+                    </li>
+                </ul>
             </div>
         </nav>
-        <div class="container-fluid bg-light border-bottom">
+        <div class="container-fluid mx-2 bg-light border-bottom">
             <header class="text-center text-secondary">
             {% block header %}{% endblock %}
             </header>
@@ -58,9 +55,23 @@
             {% for message in get_flashed_messages() %}
             <div class="flash">{{ message }}</div>
             {% endfor %}
-            {% block content %}{% endblock %}
+        <div class="container-fluid m-2 pb-2 bg-light border-bottom">
+            <div class="row justify-content-md-center">
+                <h2 class="text-secondary">{% block header_2 %}{% endblock %}</h2>
+            </div>
+            <div class="row justify-content-md-center">
+                {% block content_1 %}{% endblock %}
+            </div>
+        </div>
+        <div class="container-fluid m-2 pb-2 bg-light border-bottom">
+            <div class="row justify-content-md-center">
+                <h2 class="text-secondary">{% block header_3 %}{% endblock %}</h2>
+            </div>
+            <div class="row justify-content-md-center">
+                {% block content_2 %}{% endblock %}
+            </div>
+        </div>
     {% block scripts %}
-            <!-- Optional JavaScript -->
     {% endblock %}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
