@@ -85,7 +85,8 @@ def transactions_view():
         subcategory_id = request.form["category_subcategory"]
         amount = request.form["amount"]
         description = request.form["description"]
-        if transactions.add(subcategory_id,amount,description):
+        file = request.files["file"]
+        if transactions.add(subcategory_id,amount,description,file):
             return redirect("/transactions")
         else:
             return render_template("error.html", error="Tapahtuman lisäys ei onnistunut")
@@ -145,3 +146,4 @@ def summary_result():
     if request.method == "GET":
         monthly_result = summary.monthly(1,12,2020,2020)
         return render_template("summary.html",monthly_result=monthly_result)
+
