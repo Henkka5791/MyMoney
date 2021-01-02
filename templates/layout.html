@@ -27,19 +27,19 @@
                     id="navbarCenteredExample">
                 <ul class="navbar-nav mb-2 mb-lg-0">
                     <li class="nav-item active">
-                    <a class="nav-link active" aria-current="page" href="/">Home</a>
+                    <a class="nav-link active" aria-current="page" href="/">Koti</a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link active" aria-current="page" href="/transactions">Transactions</a>
+                        <a class="nav-link active" aria-current="page" href="/transactions">Tapahtumat</a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link active" aria-current="page" href="/summary">Summary</a>
+                        <a class="nav-link active" aria-current="page" href="/summary">Yhteenveto</a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link active" aria-current="page" href="/budgets">Budget</a>
+                        <a class="nav-link active" aria-current="page" href="/budgets">Budjetti</a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link active" aria-current="page" href="/categories">Categories</a>
+                        <a class="nav-link active" aria-current="page" href="/categories">Kategoriat</a>
                     </li>
                     <li class="nav-item active">
                         <a class="nav-link active" aria-current="page" href="/logout">Log Out</a>
@@ -57,7 +57,7 @@
             {% endfor %}
         <div class="container-fluid m-2 pb-2 bg-light border-bottom">
             <div class="row justify-content-md-center">
-                <h2 class="text-secondary">{% block header_2 %}{% endblock %}</h2>
+                <h3 class="text-secondary">{% block header_2 %}{% endblock %}</h3>
             </div>
             <div class="row justify-content-md-center">
                 {% block content_1 %}{% endblock %}
