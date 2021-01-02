@@ -3,18 +3,26 @@ import accounts
 
 def add(subcategory_id,amount,description,file):
     amount = amount_validate(amount,subcategory_id)
-    print(amount)
-    data = file.read()
-    try:
-        sql = "INSERT INTO pictures (data) VALUES (:data) RETURNING id"
-        result = db.session.execute(sql, {"data":data})
-        id = result.fetchone()[0]
-        sql = "INSERT INTO transactions(description,amount,created_at,subcategory_id,picture_id) VALUES(:description, :amount, NOW(),:subcategory_id,:id)"
-        db.session.execute(sql, {"description":description,"amount":amount,"subcategory_id":subcategory_id,"id":id})
-        db.session.commit()
-        return True
-    except:
-        return False
+    if len(file.read()) == 0:
+        try:
+            sql = "INSERT INTO transactions(description,amount,created_at,subcategory_id) VALUES(:description, :amount, NOW(),:subcategory_id)"
+            db.session.execute(sql, {"description":description,"amount":amount,"subcategory_id":subcategory_id})
+            db.session.commit()
+            return True
+        except:
+            return False
+    else:
+        data = file.read()
+        try:
+            sql = "INSERT INTO pictures (data) VALUES (:data) RETURNING id"
+            result = db.session.execute(sql, {"data":data})
+            id = result.fetchone()[0]
+            sql = "INSERT INTO transactions(description,amount,created_at,subcategory_id,picture_id) VALUES(:description, :amount, NOW(),:subcategory_id,:id)"
+            db.session.execute(sql, {"description":description,"amount":amount,"subcategory_id":subcategory_id,"id":id})
+            db.session.commit()
+            return True
+        except:
+            return False
 
 def list():
     id = accounts.user_id()
