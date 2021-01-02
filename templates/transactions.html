@@ -4,6 +4,8 @@
   <h1>{% block title %}Tapahtumat{% endblock %}</h1>
 {% endblock %}
 
+
+
 {% block header_2 %}Uusi{% endblock %}
 {% block content_1 %}
 <form action="/transactions" method="POST" enctype="multipart/form-data">
@@ -30,21 +32,12 @@
         
         <td class="text-secondary">Kuitti:</td>
         <td>
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<div class="input-group">
-    <label class="input-group-btn">
-        <span class="btn btn-outline-secondary">
-            Selaa&hellip; <input id="my-file-selector" class="file-input-box" type="file" name="file" style="display:none;" onchange="$('#upload-file-info').val($(this).val());">
-        </span>
-    </label>
-    <input type="text" class="form-control" id="upload-file-info" readonly>
-</div>
-        </div>
+            <input type="file" name="file">
         </td>     
     </tr>
     <tr>
         <td></td>
-        <td><input class="btn btn-outline-secondary" type="submit" value="Tallenna"></td></td>
+        <td><input class="btn btn-outline-secondary btn-sm" type="submit" value="Lisää uusi"></td></td>
     </tr>
     </table>
 </form>
@@ -58,6 +51,7 @@
         <th>Kategoria</th>
         <th>Alakategoria</th>
         <th>Lisätietoja</th>
+        <th>Kuitti</th>
         <th></th>
         <th></th>
     </tr>
@@ -69,14 +63,21 @@
         <td>{{ transaction[3] }}</td>
         <td>{{ transaction[4] }}</td>
         <td>{% if transaction[6] is not none %}
-            {{ transaction[6] }}
+            <form action="/transactions/pictures/{{ transaction[6] }}" method="GET">
+                <input class="btn btn-outline-secondary btn-sm" type="submit" value="Näytä">
+            </form>
             {% else %}
-            Ei kuvaa
+            Ei kuittia
             {% endif %}
         </td>
         <td><form action="/transactions/{{ transaction[5] }}" type ="GET"><input class="btn btn-outline-secondary btn-sm" type="submit" value="Muokkaa"></form></td>
-        <td><form action="/transactions/{{ transaction[5] }}/remove" type ="POST"><input class="btn btn-outline-secondary btn-sm" type="submit" value="Poista"></form></td>
+        <td><form action="/transactions/{{ transaction[5] }}/remove" type ="POST"><input class="btn btn-outline-secondary btn-sm" type="submit" value="Poista"></form>
+        </td>
     </tr>
     {% endfor %}
 </table>
 {% endblock %}
+<script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.min.js"></script>
+$(document).ready(function () {
+    bsCustomFileInput.init()
+  })
