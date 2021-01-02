@@ -1,19 +1,25 @@
 from db import db
 import accounts
 
-def add(subcategory_id,amount,description):
+def add(subcategory_id,amount,description,file):
     amount = amount_validate(amount,subcategory_id)
+    print(amount)
+    data = file.read()
     try:
-        sql = "INSERT INTO transactions(description,amount,created_at,subcategory_id) VALUES(:description, :amount, NOW(),:subcategory_id)"
-        db.session.execute(sql, {"description":description,"amount":amount,"subcategory_id":subcategory_id})
+        sql = "INSERT INTO pictures (data) VALUES (:data) RETURNING id"
+        result = db.session.execute(sql, {"data":data})
+        id = result.fetchone()[0]
+        sql = "INSERT INTO transactions(description,amount,created_at,subcategory_id,picture_id) VALUES(:description, :amount, NOW(),:subcategory_id,:id)"
+        db.session.execute(sql, {"description":description,"amount":amount,"subcategory_id":subcategory_id,"id":id})
         db.session.commit()
         return True
     except:
         return False
 
 def list():
-    sql = "SELECT t.created_at,t.amount,c.name,s.name,t.description, t.id FROM transactions t, categories c, subcategories s WHERE t.visible=1 AND c.visible = 1 AND s.visible = 1 AND t.subcategory_id=s.id AND s.category_id=c.id ORDER BY t.created_at DESC LIMIT 10"
-    result = db.session.execute(sql)
+    id = accounts.user_id()
+    sql = "SELECT t.created_at,t.amount,c.name,s.name,t.description, t.id,p.id FROM categories c, subcategories s, accounts a,transactions t LEFT JOIN pictures p ON p.id=t.picture_id WHERE t.visible=1 AND c.visible = 1 AND s.visible = 1 AND t.subcategory_id=s.id AND s.category_id=c.id AND c.account_id=a.id AND a.id=:id ORDER BY t.created_at DESC LIMIT 10"
+    result = db.session.execute(sql,{"id":id})
     transactions = result.fetchall()
     return transactions
 
