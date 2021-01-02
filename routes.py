@@ -146,4 +146,8 @@ def summary_result():
     if request.method == "GET":
         monthly_result = summary.monthly(1,12,2020,2020)
         return render_template("summary.html",monthly_result=monthly_result)
-
+    if request.method == "POST":
+        time_from = request.form["time_from"]
+        time_to = request.form["time_to"]
+        print(time_from)
+        return redirect("/summary")
