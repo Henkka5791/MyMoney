@@ -141,13 +141,15 @@ def budget_edit(year):
         else:
             return render_template("error.html", error="Budjetin päivittäminen ei onnistunut")
 
-@app.route("/summary",methods=["GET","POST"])
+@app.route("/summary")
 def summary_result():
-    if request.method == "GET":
-        monthly_result = summary.monthly(1,12,2020,2020)
-        return render_template("summary.html",monthly_result=monthly_result)
-    if request.method == "POST":
-        time_from = request.form["time_from"]
-        time_to = request.form["time_to"]
-        print(time_from)
-        return redirect("/summary")
+    try:
+        time_from = request.args["time_from"]
+        time_to = request.args["time_to"]
+        monthly_result = summary.monthly(time_from,time_to)
+        total = summary.total_sum(time_from,time_to)
+        return render_template("summary.html",monthly_result=monthly_result,total=total)
+    except:
+        print("except)")
+        return render_template("summary.html",monthly_result=[],total=[])
+    
