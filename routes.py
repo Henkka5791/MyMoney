@@ -148,7 +148,8 @@ def summary_result():
         time_to = request.args["time_to"]
         monthly_result = summary.monthly(time_from,time_to)
         total = summary.total_sum(time_from,time_to)
-        return render_template("summary.html",monthly_result=monthly_result,total=total)
+        by_categories = summary.by_categories(time_from,time_to)
+        return render_template("summary.html",monthly_result=monthly_result,total=total,by_categories=by_categories, time_from=time_from,time_to=time_to)
     except:
         print("except)")
         return render_template("summary.html",monthly_result=[],total=[])
