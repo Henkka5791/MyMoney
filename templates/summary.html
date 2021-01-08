@@ -13,7 +13,7 @@
 </form>
 {% endblock %}
 
-{% block header_3 %}{{ time_from }}-{{ time_to }}{% endblock %}
+{% block header_3 %}{{ date_from.strftime("%d.%m.%Y") }}-{{ date_to.strftime("%d.%m.%Y") }}{% endblock %}
 {% block content_2 %}
 {% if monthly_result|length > 0 %}
 <div class="container">
