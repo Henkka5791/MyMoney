@@ -1,9 +1,11 @@
 from db import db
 import accounts
+from flask import make_response 
+import base64
 
-def add(subcategory_id,amount,description,file):
+def add(subcategory_id,amount,description,data,name):
     amount = amount_validate(amount,subcategory_id)
-    if len(file.read()) == 0:
+    if len(data) == 0:
         try:
             sql = "INSERT INTO transactions(description,amount,created_at,subcategory_id) VALUES(:description, :amount, NOW(),:subcategory_id)"
             db.session.execute(sql, {"description":description,"amount":amount,"subcategory_id":subcategory_id})
@@ -12,10 +14,9 @@ def add(subcategory_id,amount,description,file):
         except:
             return False
     else:
-        data = file.read()
         try:
-            sql = "INSERT INTO pictures (data) VALUES (:data) RETURNING id"
-            result = db.session.execute(sql, {"data":data})
+            sql = "INSERT INTO pictures (name,data) VALUES (:name,:data) RETURNING id"
+            result = db.session.execute(sql, {"name":name,"data":data})
             id = result.fetchone()[0]
             sql = "INSERT INTO transactions(description,amount,created_at,subcategory_id,picture_id) VALUES(:description, :amount, NOW(),:subcategory_id,:id)"
             db.session.execute(sql, {"description":description,"amount":amount,"subcategory_id":subcategory_id,"id":id})
@@ -43,7 +44,6 @@ def view_one(id):
     sql = "SELECT t.created_at,t.amount,t.description,t.id,c.name,s.name,p.data FROM categories c, subcategories s,transactions t LEFT JOIN pictures p ON p.id=t.picture_id WHERE t.id=:id AND t.subcategory_id=s.id AND c.id = s.category_id"
     result = db.session.execute(sql,{"id":id})
     transaction = result.fetchone()
-    print(transaction[0])
     return transaction 
 
 def update(subcategory_id,amount,description,id):
@@ -65,6 +65,17 @@ def remove(id):
         return True
     except:
         return False
+
+def show_picture(id):
+    try:
+        sql = "SELECT data FROM pictures WHERE id=:id"
+        result = db.session.execute(sql, {"id":id})
+        data = result.fetchone()[0]
+        response = make_response(bytes(data))
+        response.headers.set("Content-Type","image/jpeg")
+        return response
+    except:
+        print("Ei onnistu")
 
 def amount_validate(amount,subcategory_id):
     amount = amount.replace(",",".")
