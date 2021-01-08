@@ -1,15 +1,22 @@
 from db import db
 import accounts
 from calendar import monthrange
+from datetime import datetime
 
-def monthly(day_from,day_to):
-    id = accounts.user_id()
-    time_from = day_from+"-"+"01"
-    parts = day_to.split("-")
+def set_days(year_and_month_from,year_and_month_to):
+    time_from = datetime.strptime(year_and_month_from+"-"+"01",'%Y-%m-%d')
+    parts = year_and_month_to.split("-")
     year_to = int(parts[0])
     month_to = int(parts[1])
     last_day = monthrange(year_to,month_to)
-    time_to = day_to+"-"+str(last_day[1])
+    time_to = datetime.strptime(year_and_month_to+"-"+str(last_day[1]),'%Y-%m-%d')
+    return (time_from,time_to)
+
+def monthly(year_and_month_from,year_and_month_to):
+    id = accounts.user_id()
+    times = set_days(year_and_month_from,year_and_month_to)
+    time_from = times[0]
+    time_to = times[1]
     visible = 1
     sql = '''SELECT 
                 b.year::numeric::integer,
@@ -65,14 +72,11 @@ def monthly(day_from,day_to):
     monthly_results = result.fetchall()
     return monthly_results
 
-def total_sum(day_from,day_to):
+def total_sum(year_and_month_from,year_and_month_to):
     id = accounts.user_id()
-    time_from = day_from+"-"+"01"
-    parts = day_to.split("-")
-    year_to = int(parts[0])
-    month_to = int(parts[1])
-    last_day = monthrange(year_to,month_to)
-    time_to = day_to+"-"+str(last_day[1])
+    times = set_days(year_and_month_from,year_and_month_to)
+    time_from = times[0]
+    time_to = times[1]
     visible = 1
     sql = '''SELECT 
                 count(b.month),
