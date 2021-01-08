@@ -2,7 +2,6 @@ from app import app
 from flask import redirect, render_template, request, session,make_response
 import accounts
 import categories, transactions, budgets,summary
-from db import db
 
 @app.route("/")
 def index():
@@ -152,7 +151,10 @@ def summary_result():
         monthly_result = summary.monthly(time_from,time_to)
         total = summary.total_sum(time_from,time_to)
         by_categories = summary.by_categories(time_from,time_to)
-        return render_template("summary.html",monthly_result=monthly_result,total=total,by_categories=by_categories, time_from=time_from,time_to=time_to)
+        times = summary.set_days(time_from,time_to)
+        date_from = times[0]
+        date_to = times[1]
+        return render_template("summary.html",monthly_result=monthly_result,total=total,by_categories=by_categories,date_from=date_from,date_to=date_to)
     except:
         print("except)")
         return render_template("summary.html",monthly_result=[],total=[])
