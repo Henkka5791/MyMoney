@@ -1,7 +1,8 @@
 from app import app
-from flask import redirect, render_template, request, session
+from flask import redirect, render_template, request, session,make_response
 import accounts
 import categories, transactions, budgets,summary
+from db import db
 
 @app.route("/")
 def index():
@@ -86,7 +87,9 @@ def transactions_view():
         amount = request.form["amount"]
         description = request.form["description"]
         file = request.files["file"]
-        if transactions.add(subcategory_id,amount,description,file):
+        data = file.read()
+        name = file.filename
+        if transactions.add(subcategory_id,amount,description,data,name):
             return redirect("/transactions")
         else:
             return render_template("error.html", error="Tapahtuman lisäys ei onnistunut")
@@ -154,3 +157,7 @@ def summary_result():
         print("except)")
         return render_template("summary.html",monthly_result=[],total=[])
     
+@app.route("/transactions/pictures/<int:id>")
+def show(id):
+    picture = transactions.show_picture(id)
+    return picture
