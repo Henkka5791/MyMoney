@@ -1,7 +1,8 @@
 from app import app
 from flask import redirect, render_template, request, session,make_response
 import accounts
-import categories, transactions, budgets,summary
+import categories, transactions, budgets,summary,search
+from datetime import datetime
 
 @app.route("/")
 def index():
@@ -152,14 +153,39 @@ def summary_result():
         total = summary.total_sum(time_from,time_to)
         by_categories = summary.by_categories(time_from,time_to)
         times = summary.set_days(time_from,time_to)
-        date_from = times[0]
-        date_to = times[1]
-        return render_template("summary.html",monthly_result=monthly_result,total=total,by_categories=by_categories,date_from=date_from,date_to=date_to)
+        return render_template("summary.html", monthly_result=monthly_result,total=total,by_categories=by_categories,time_from=times[0],time_to=times[1])
     except:
-        print("except)")
-        return render_template("summary.html",monthly_result=[],total=[])
+        print("except")
+        return render_template("summary.html",monthly_result=[],total=[],time_from="", time_to="")
     
 @app.route("/transactions/pictures/<int:id>")
 def show(id):
     picture = transactions.show_picture(id)
     return picture
+
+@app.route("/search")
+def view_search():
+    time_to=""
+    time_from=""
+    print(time_from)
+    print(type(request.args["time_from"]))
+    if not request.args["time_from"]:
+        times = search.first_and_last()
+        time_from = times[0]
+    else:
+        time_from = request.args["time_from"]+" "+"00:00:00"
+        time_from = datetime.strptime(time_from,"%Y-%m-%d %H:%M:%S")
+    if not request.args["time_to"]:
+        times = search.first_and_last()
+        time_to = times[1]
+    else:
+        time_to = request.args["time_to"]+" "+"23:59:59"
+        time_from = datetime.strptime(time_to,"%Y-%m-%d %H:%M:%S")
+        print(time_from,time_to)
+    if not request.args["query"]:
+        query=""
+    else:
+        query = request.args["query"]
+
+    transaction_list = search.find(time_from,time_to,query)
+    return render_template("search.html",transaction_list=transaction_list,time_from=time_from,time_to=time_to,query=query)
