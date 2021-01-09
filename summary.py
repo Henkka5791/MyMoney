@@ -9,7 +9,7 @@ def set_days(year_and_month_from,year_and_month_to):
     year_to = int(parts[0])
     month_to = int(parts[1])
     last_day = monthrange(year_to,month_to)
-    time_to = datetime.strptime(year_and_month_to+"-"+str(last_day[1]),'%Y-%m-%d')
+    time_to = datetime.strptime(year_and_month_to+"-"+str(last_day[1])+" "+"23:59:59",'%Y-%m-%d %H:%M:%S')
     return (time_from,time_to)
 
 def monthly(year_and_month_from,year_and_month_to):
@@ -139,7 +139,6 @@ def by_categories(day_from,day_to):
     last_day = monthrange(year_to,month_to)
     time_to = day_to+"-"+str(last_day[1])
     visible = 1
-    print("ok")
     sql ='''SELECT 
                 c.name,
                 s.name,
