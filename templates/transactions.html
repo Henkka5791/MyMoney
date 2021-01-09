@@ -43,7 +43,7 @@
 <table class="table table-striped table-bordered w-auto table-sm text-secondary">
     <tr>
         <th>Aika</th>
-        <th>Summa €</th>
+        <th class="text-right">Summa €</th>
         <th>Kategoria</th>
         <th>Alakategoria</th>
         <th>Lisätietoja</th>
@@ -55,7 +55,7 @@
     {% for transaction in transactions_list %}
     <tr>
         <td>{{ transaction[0].strftime("%d.%m.%Y %H:%M") }}</td>
-        <td>{{ transaction[1] }}</td> 
+        <td class="text-right">{{ transaction[1] }}</td> 
         <td>{{ transaction[2] }}</td>  
         <td>{{ transaction[3] }}</td>
         <td>{{ transaction[4] }}</td>
