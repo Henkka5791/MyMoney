@@ -1,0 +1,53 @@
+{% extends 'layout.html' %}
+
+{% block header %}
+  <h1>{% block title %}Haku{% endblock %}</h1>
+{% endblock %}
+
+{% block content_1 %}
+<form action="/search" method="GET">
+    <input type="date" name="time_from">
+    <input type="date" name="time_to">
+    <input type="text" name="query">
+    <input type="submit" value="Hae">
+</form>
+{% endblock %}
+
+{% block header_3 %}Tulokset {{ time_from.strftime("%d.%m.%Y") }} - {{ time_to.strftime("%d.%m.%Y") }} hakusanalla {{ query }}{% endblock %}
+
+{% block content_2 %}
+<table class="table table-striped table-bordered w-auto table-sm text-secondary">
+    <tr>
+        <th>Aika</th>
+        <th>Summa €</th>
+        <th>Kategoria</th>
+        <th>Alakategoria</th>
+        <th>Lisätietoja</th>
+        <th>Kuitti</th>
+        <th class="bg-light"></th>
+        <th></th>
+        <th></th>
+    </tr>
+    {% for transaction in transaction_list %}
+    <tr>
+        <td>{{ transaction[0].strftime("%d.%m.%Y %H:%M") }}</td>
+        <td>{{ transaction[1] }}</td> 
+        <td>{{ transaction[2] }}</td>  
+        <td>{{ transaction[3] }}</td>
+        <td>{{ transaction[4] }}</td>
+        <td>{% if transaction[6] is not none %}
+            <form action="/transactions/pictures/{{ transaction[6] }}" method="GET">
+                <input class="btn btn-outline-secondary btn-sm" type="submit" value="Näytä">
+            </form>
+            {% else %}
+            Ei kuittia
+            {% endif %}
+        </td>
+        <td class="bg-light"></td>
+        <td><form action="/transactions/{{ transaction[5] }}" type ="GET"><input class="btn btn-outline-secondary btn-sm" type="submit" value="Muokkaa"></form></td>
+        <td><form action="/transactions/{{ transaction[5] }}/remove" type ="POST"><input class="btn btn-outline-secondary btn-sm" type="submit" value="Poista"></form>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
