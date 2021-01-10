@@ -51,7 +51,7 @@ def budget_list(year):
     visible = 1
     sql = '''SELECT 
                 c.name,
-                b.amount,
+                ROUND(b.amount::numeric,2),
                 extract(month FROM b.period) AS month,
                 b.id 
             FROM 
@@ -85,7 +85,7 @@ def budget_sum(budget_year):
     visible = 1
     sql = '''SELECT 
                 c.name,
-                sum(b.amount) 
+                ROUND(sum(b.amount)::numeric,2) 
             FROM 
                 categories c, 
                 budgets b 
