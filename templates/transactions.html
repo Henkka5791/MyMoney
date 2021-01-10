@@ -45,8 +45,8 @@
     <tr>
         <th>Aika</th>
         <th class="text-right">Summa €</th>
-        <th>Kategoria</th>
-        <th>Alakategoria</th>
+        <th class="text-center">Kategoria</th>
+        <th class="text-center">Alakategoria</th>
         <th>Lisätietoja</th>
         <th>Kuitti</th>
         <th class="bg-light"></th>
@@ -57,8 +57,8 @@
     <tr>
         <td>{{ transaction[0].strftime("%d.%m.%Y %H:%M") }}</td>
         <td class="text-right">{{ transaction[1] }}</td> 
-        <td>{{ transaction[2] }}</td>  
-        <td>{{ transaction[3] }}</td>
+        <td class="text-center">{{ transaction[2] }}</td>  
+        <td class="text-center">{{ transaction[3] }}</td>
         <td>{{ transaction[4] }}</td>
         <td>{% if transaction[6] is not none %}
             <form action="/transactions/pictures/{{ transaction[6] }}/show" method="GET">
