@@ -185,7 +185,7 @@ def view_search():
         time_to = times[1]
     else:
         time_to = request.args["time_to"]+" "+"23:59:59"
-        time_from = datetime.strptime(time_to,"%Y-%m-%d %H:%M:%S")
+        time_to = datetime.strptime(time_to,"%Y-%m-%d %H:%M:%S")
         print(time_from,time_to)
     if not request.args["query"]:
         query=""
@@ -193,4 +193,6 @@ def view_search():
         query = request.args["query"]
 
     transaction_list = search.find(time_from,time_to,query)
+    if query=="":
+        query = "ei hakusanaa"
     return render_template("search.html",transaction_list=transaction_list,time_from=time_from,time_to=time_to,query=query)
