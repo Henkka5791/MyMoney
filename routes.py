@@ -97,10 +97,11 @@ def transactions_view():
 @app.route("/transactions/<int:id>", methods=["GET","POST"])
 def transaction_edit(id):
     if request.method == "GET":
+        picture_id = request.args["picture_id"]
         transaction = transactions.view_one(id)
         categories_subcategories = categories.category_subcategory_list_all()
-        return render_template("transaction_single.html",transaction = transaction,categories_subcategories=categories_subcategories)
-    if request.method == "POST":      
+        return render_template("transaction_single.html",transaction = transaction,categories_subcategories=categories_subcategories,picture_id=picture_id)
+    if request.method == "POST":     
         subcategory_id = request.form["category_subcategory"]
         amount = request.form["amount"]
         description = request.form["description"]
@@ -157,8 +158,12 @@ def summary_result():
     except:
         print("except")
         return render_template("summary.html",monthly_result=[],total=[],time_from="", time_to="")
-    
-@app.route("/transactions/pictures/<int:id>")
+
+#@app.route("/transactions/pictures/<int:id>")
+#def show_pictures(id):
+#    return render_template("picture.html",id=id)
+
+@app.route("/transactions/pictures/<int:id>/show")
 def show(id):
     picture = transactions.show_picture(id)
     return picture
