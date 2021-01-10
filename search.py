@@ -24,7 +24,7 @@ def find(time_from,time_to,query):
     id = accounts.user_id()
     visible = 1
     sql ='''SELECT 
-                t.created_at,t.amount,c.name,s.name,t.description,t.id,p.id 
+                t.created_at,ROUND(t.amount::numeric,2),c.name,s.name,t.description,t.id,p.id 
             FROM 
                 categories c,subcategories s,transactions t 
             LEFT JOIN pictures p ON p.id=t.picture_id 
