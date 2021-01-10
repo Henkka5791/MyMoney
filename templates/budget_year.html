@@ -13,14 +13,14 @@
     <thead>
         <tr>
             <th text-secondary>Kategoria</th>
-            <th>Budjetti €</th>
+            <th class="text-right">Budjetti €</th>
         </tr>
     </thead>
     <tbody>
         {% for sum in sums %}
         <tr>
             <td>{{ sum[0] }}</td>
-            <td>{{ sum[1] }}</td>
+            <td class="text-right">{{ sum[1] }}</td>
         </tr>
         {% endfor %}
     </tbody>
@@ -39,7 +39,7 @@
         <thead>
             <tr>
                 <th data-sortable="true">Kategoria</th>
-                <th data-sortable="true">Budjetti €</th>
+                <th data-sortable="true" class="text-right">Budjetti €</th>
                 <th data-sortable="true">Kuukausi (1-12)</th>
                 <th>Uusi budjetti</th>
             </tr>
@@ -48,7 +48,7 @@
             {% for budget in year_budget %}   
             <tr>
                 <td>{{ budget[0] }}</td>
-                <td>{{ budget[1] }}</td>
+                <td class="text-right">{{ budget[1] }}</td>
                 <td class="text-center">{{ budget[2]|int }}</td>
                 <td><input class="w-5" type="TEXT" value="{{ budget[1] }}" name="amount">
                 <input type="HIDDEN" value="{{ budget[3] }}" name="budget_id"></td>
