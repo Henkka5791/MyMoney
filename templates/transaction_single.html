@@ -39,3 +39,18 @@
 </table>
 </form>
 {% endblock %}
+
+{% if picture_id is none %}
+Ei kuvaa
+{% else %}
+kuva {{ picture_id }}
+<img src="/transactions/pictures/{{ picture_id }}/show">
+{% endif %}
+
+
+{% block content_2 %}
+{% if picture_id|int != 0 %}
+<img src="/transactions/pictures/{{ picture_id }}/show">
+{% endif %}
+
+{% endblock %}
