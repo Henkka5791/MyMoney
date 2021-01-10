@@ -27,14 +27,14 @@
                 <tr>
                     <th>Kategoria</th>
                     <th>Alakategoria</th>
-                    <th>Yhteensä €</th>
+                    <th class="text-right">Yhteensä €</th>
                     <th>Tapahtumia kpl</th>
                 </tr>
                 {% for by_category in by_categories %}
                 <tr>
                     <td>{{ by_category[0] }}</td>
                     <td>{{ by_category[1] }}</td>
-                    <td>{{ by_category[2] }}</td>
+                    <td class="text-right">{{ by_category[2] }}</td>
                     <td>{{ by_category[3] }}</td>
                 </tr>
                 {% endfor %}
@@ -51,33 +51,33 @@
                     <th>Vuosi</th>
                     <th>kk</th>
                     <th class="text-right">Tulot €</th>
-                    <th>Budjetoidut tulot €</th>
-                    <th>Menot €</th>
-                    <th>Budjetoidut menot €</th>
-                    <th>Tulot vs. Menot €</th>
-                    <th>Menobudjetti vs. Menot €</th>
+                    <th class="text-right">Budjetoidut tulot €</th>
+                    <th class="text-right">Menot €</th>
+                    <th class="text-right">Budjetoidut menot €</th>
+                    <th class="text-right">Tulot vs. Menot €</th>
+                    <th class="text-right">Menobudjetti vs. Menot €</th>
                 </tr>
                 {% for result in monthly_result %}
                 <tr>
                     <td>{{ result[0] }}</td>
                     <td>{{ result[1] }}</td>
                     <td class="text-right">{{ result[2] }}</td>
-                    <td>{{ result[3] }}</td>
-                    <td>{{ result[4] }}</td>
-                    <td>{{ result[5] }}</td>
-                    <td>{{ result[6] }}</td>
-                    <td>{{ result[7] }}</td>
+                    <td class="text-right">{{ result[3] }}</td>
+                    <td class="text-right">{{ result[4] }}</td>
+                    <td class="text-right">{{ result[5] }}</td>
+                    <td class="text-right">{{ result[6] }}</td>
+                    <td class="text-right">{{ result[7] }}</td>
                 </tr>
                 {% endfor %}
                 <tr>
                     <th>Yhteensä</th>
                     <th>{{ total[0] }}</th>
-                    <th>{{ total[1] }}</th>
-                    <th>{{ total[2] }}</th>
-                    <th>{{ total[3] }}</th>
-                    <th>{{ total[4] }}</th>
-                    <th>{{ total[5] }}</th>
-                    <th>{{ total[6] }}</th>
+                    <th class="text-right">{{ total[1] }}</th>
+                    <th class="text-right">{{ total[2] }}</th>
+                    <th class="text-right">{{ total[3] }}</th>
+                    <th class="text-right">{{ total[4] }}</th>
+                    <th class="text-right">{{ total[5] }}</th>
+                    <th class="text-right">{{ total[6] }}</th>
                 </tr>
             </table>
         
