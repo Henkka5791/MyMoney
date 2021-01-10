@@ -5,15 +5,22 @@
   <h1>{% block title %}OmaTalous{% endblock %}</h1>
 {% endblock %}
 
-{% block header_2 %}Vinkkejä{% endblock %}
 {% block content_1 %}
-
-<p>Olet kirjautunut nimellä {{ username }}</p><br>
-<p>Kirjaudu <a href="/logout">ulos</a></p>
-<a href="/categories">Kategoriat</a><br>
-<a href="/transactions">Tapahtuman lisäys</a>
-<a href="/budgets">Budjetit</a>
+Hei {{ username }},<br> 
+OmaTalouden avulla voit seurata rahan käyttöäsi.<br> 
+Luo omat kulutuskategoriat, luo niille budjetti, kirjaa kuluja ja seuraa toteutumista. 
 {% endblock %}
+
+{% block header_3 %}Oletko ensimmäistä kertaa OmaTaloudessa?{% endblock %}
+
+{% block content_2 %}
+<div class="col-4"></div>
+<div class="col-4">
+<p>Aloita luomalla <a href="\categories">kategorioita</a> ja niille alakategorioita. Esimerkiksi voit luoda kategorian 'vaatteet' ja tälle alakategoriat 'lasten vaatteet' ja 'aikuisten vaatteet'. Kategorialla pitää olla ainakin yksi alakategoria. Laadi tämän jälkeen seuraavalle vuodelle <a href="\budgets">budjetti</a>. Nyt olet valmis syöttämään ensimmäisen <a href="\transactions">tapahtuman</a>. <a href="\summary">Yhteenvedossa</a> voit tarkastella yhteenvetoa eri ajanjaksoina. Tapahtumia voi <a href="\search?time_from=&time_to=&query=">hakea</a> eri kriteereillä.Hauskaa talouden seurantaa</p>
+</div>
+<div class="col-4"></div>
+{% endblock %}
+
 {% else %}
 <form action="/login" method="POST">
 <p>Tunnus:<br>
