@@ -8,11 +8,11 @@
 <form action="/transactions" method="POST" enctype="multipart/form-data">
     <table>
     <tr>
-        <td class="text-secondary">Summa:</td>
+        <td class="text-secondary">Summa:<span style="color: red;">*</span></td>
         <td><input class="w-5" type="TEXT" name="amount"></td>
     </tr>
     <tr>
-        <td class="text-secondary">Kategoria:</td>
+        <td class="text-secondary">Kategoria:<span style="color: red;">*</span></td>
         <td><select name="category_subcategory">
             <option value="" selected disable hidden>Valitse Kategoria</option>
             {% for category_subcategory in categories_subcategories %}
@@ -34,7 +34,7 @@
     </tr>
     <tr>
         <td></td>
-        <td><input class="btn btn-outline-secondary btn-sm" type="submit" value="Lisää uusi"></td></td>
+        <td><input class="btn btn-outline-secondary btn-sm" type="submit" value="Lisää uusi tapahtuma"></td></td>
     </tr>
     </table>
 </form>
