@@ -1,16 +1,18 @@
 {% extends 'layout.html' %}
 
 {% block header %}
-  <h1>{% block title %}{{ name }}{% endblock %}</h1>
+  <h1>{% block title %}Pääluokka: {{ name }}{% endblock %}</h1>
 {% endblock %}
 
-{% block header_2 %}Lisää alakategoria{% endblock %}
+{% block header_2 %}Lisää alaluokka pääluokalle {{ name }}{% endblock %}
 {% block content_1 %}
 <form action="/categories/{{ id }}" method="POST">
 <input class="text-secondary" type="text" name="name">
 <input class="btn btn-outline-secondary btn-sm" type="submit" value="Lisää">
 </form>
 {% endblock %}
+
+{% block header_3 %}Pääluokan {{ name }} alaluokat{% endblock %}
 
 {% block content_2 %}
 <table>
