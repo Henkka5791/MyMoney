@@ -30,3 +30,7 @@ $custom-file-text: (
   en: "Browse",
   fi: "Selaa"
 );
+
+#mycaption caption {
+    caption-side: top;
+}
