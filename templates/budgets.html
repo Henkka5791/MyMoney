@@ -7,11 +7,14 @@
 {% block header_2 %}Luo uusi vuosibudjetti{% endblock %}
 {% block content_1 %}
 <form action="/budgets" method="POST" class="justify-content-center">
-    <input class="form-control-sm w-5 float-center" type="TEXT" name="year" value="esim. 2020">
-    <input class="btn btn-outline-secondary btn-sm" type="Submit" value="Luo">
+    <div class="form-group">
+        <label class="text-secondary">Vuosi (esim. 2021):</label>
+        <input type="form-control-sm" name="year" class="text-secondary">
+        <input class="btn btn-outline-secondary btn-sm" type="submit" value="Luo">
+    </div>
 </form>
 {% endblock %}
-{% block header_3 %}Muokkaa{% endblock %}
+{% block header_3 %}Muokkaa vuosibudjettia{% endblock %}
 {% block content_2 %}
 <div class="content">
 {% for year in years %}
