@@ -1,18 +1,31 @@
 {% extends 'layout.html' %}
 
 {% block header %}
-  <h1>{% block title %}Kategoriat{% endblock %}</h1>
+  <h1>{% block title %}Luokkien lisääminen ja hallinta{% endblock %}</h1>
 {% endblock %}
 
-{% block header_2 %}Lisää{% endblock %}
+{% block header_2 %}Uuden pääluokan lisääminen{% endblock %}
 {% block content_1 %}
 <form action="/categories" method="POST">
-    <input type="text" name="name" value="Kategorian nimi" class="text-secondary">
-    <input type="radio" name="outcome" value="0"><span class="text-secondary">Tulo</span>
-    <input type="radio" name="outcome" value="1"><span class="text-secondary">Meno</span>
-    <input class="btn btn-outline-secondary btn-sm" type="submit" value="Lisää kategoria">
+    <div class="form-group">
+        <label class="text-secondary">Uuden pääluokan nimi:</label><br>
+        <input type="form-control-sm" name="name" class="text-secondary">
+    </div>
+    <div class="form-check">
+        <input class="form-check-input" type="radio" name="outcome" value="0">
+        <label class="form-check-label text-secondary">Tuloa</label>
+    </div>
+    <div class="form-check">
+        <input class="form-check-input" type="radio" name="outcome" value="1">
+        <label class="form-check-label text-secondary">Menoa</label>
+    </div>
+    <div>
+        <input class="btn btn-outline-secondary btn-sm" type="submit" value="Lisää uusi pääluokka">
+    </div>
 </form>
 {% endblock %}
+
+{% block header_3 %}Lisää alaluokkia tai poista pääluokka{% endblock %}
 
 {% block content_2 %}
 <div class="content">
@@ -21,7 +34,7 @@
             <table>
                 <thead>
                     <tr>
-                        <th><strong class="text-secondary">TULOT</strong></th>
+                        <th><strong class="text-secondary">TULOLUOKAT</strong></th>
                         <th></th>
                         <th></th>
                     </tr>
@@ -31,23 +44,22 @@
                     <tr>
                         <td class="text-secondary">{{ income[1] }}</td>
                         <td><form action="/categories/{{ income[0] }}" method="GET">
-                                <input class="btn btn-outline-secondary btn-sm" type="Submit" value="Alakategoriat">
+                                <input class="btn btn-outline-secondary btn-sm" type="Submit" value="Lisää alaluokkia">
                             </form>
                         </td>
                         <td><form action="/categories/{{ income[0] }}/remove" method="POST">
-                                <input class="btn btn-outline-secondary btn-sm" type="Submit" value="Poista">
+                                <input class="btn btn-outline-secondary btn-sm" type="Submit" value="Poista pääluokka">
                             </form>
                         </td>
                     </tr>
                     {% endfor %}
+                    <tr> 
+                        <td>&nbsp</td>
+                    </tr>
                 </tbody>
-            </table>
-        </div>
-        <div class="col">
-            <table>
                 <thead>
                     <tr>
-                        <th><strong class="text-secondary">MENOT</strong></th>
+                        <th><strong class="text-secondary">MENOLUOKAT</strong></th>
                         <th></th>
                         <th></th>
                     </tr>
@@ -57,11 +69,11 @@
                     <tr>
                         <td class="text-secondary">{{ outcome[1] }}</td>
                         <td><form action="/categories/{{ outcome[0] }}" method="GET">
-                                <input class="btn btn-outline-secondary btn-sm" type="Submit" value="Alakategoriat">
+                                <input class="btn btn-outline-secondary btn-sm" type="Submit" value="Lisää alaluokkia">
                             </form>
                         </td>
                         <td><form action="/categories/{{ outcome[0] }}/remove" method="POST">
-                                <input class="btn btn-outline-secondary btn-sm" type="Submit" value="Poista">
+                                <input class="btn btn-outline-secondary btn-sm" type="Submit" value="Poista pääluokka">
                             </form>
                         </td>
                     </tr>
