@@ -4,6 +4,8 @@ import categories,accounts
 def create_budget(year):
     category_list = categories.category_list()
     try:
+        if year in budget_years():
+            return False
         for category in category_list:
             print(category)
             for i in range(1,13):
@@ -72,6 +74,8 @@ def budget_update(ids,amounts):
     try:
         for idx in enumerate(ids):
             amount = amounts[idx[0]]
+            amount = amount.replace(",",".")
+            amount = amount.replace("-","")
             id = idx[1]
             sql = "UPDATE budgets SET amount=:amount WHERE id=:id"
             db.session.execute(sql,{"amount":amount,"id":id})
