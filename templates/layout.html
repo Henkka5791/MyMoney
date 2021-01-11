@@ -42,7 +42,7 @@
                         <a class="nav-link active" aria-current="page" href="/budgets">Budjetti</a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link active" aria-current="page" href="/categories">Kategoriat</a>
+                        <a class="nav-link active" aria-current="page" href="/categories">Luokat</a>
                     </li>
                     <li class="nav-item active">
                         <a class="nav-link active" aria-current="page" href="/logout">Kirjaudu ulos</a>
@@ -60,7 +60,7 @@
             {% endfor %}
         <div class="container-fluid m-2 pb-2 bg-light border-bottom">
             <div class="row justify-content-md-center">
-                <h3 class="text-secondary">{% block header_2 %}{% endblock %}</h3>
+                <h4 class="text-secondary">{% block header_2 %}{% endblock %}</h4>
             </div>
             <div class="row justify-content-md-center">
                 {% block content_1 %}{% endblock %}
@@ -68,7 +68,7 @@
         </div>
         <div class="container-fluid m-2 pb-2 bg-light border-bottom">
             <div class="row justify-content-md-center">
-                <h2 class="text-secondary">{% block header_3 %}{% endblock %}</h2>
+                <h4 class="text-secondary">{% block header_3 %}{% endblock %}</h4>
             </div>
             <div class="row justify-content-md-center">
                 {% block content_2 %}{% endblock %}
