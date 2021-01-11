@@ -7,12 +7,12 @@
   <h1>{% block title %}Vuoden {{ year }} budjetti{% endblock %}</h1>
 {% endblock %}
 
-{% block header_2 %}Yhteensä{% endblock %}
+{% block header_2 %}Yhteensä pääluokittain{% endblock %}
 {% block content_1 %}
 <table class="table table-striped table-bordered w-auto table-sm text-secondary">
     <thead>
         <tr>
-            <th text-secondary>Kategoria</th>
+            <th text-secondary>Pääluokka</th>
             <th class="text-right">Budjetti €</th>
         </tr>
     </thead>
@@ -38,7 +38,7 @@
         data-buttons-class="secondary">
         <thead>
             <tr>
-                <th data-sortable="true">Kategoria</th>
+                <th data-sortable="true">Pääluokka</th>
                 <th data-sortable="true" class="text-right">Budjetti €</th>
                 <th data-sortable="true">Kuukausi (1-12)</th>
                 <th>Uusi budjetti</th>
