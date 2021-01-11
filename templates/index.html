@@ -6,17 +6,43 @@
 {% endblock %}
 
 {% block content_1 %}
-Hei {{ username }},<br> 
-OmaTalouden avulla voit seurata rahan käyttöäsi.<br> 
-Luo omat kulutuskategoriat, luo niille budjetti, kirjaa kuluja ja seuraa toteutumista. 
+  <div class="col-4"></div>
+  <div class="col-4">
+    Hei <strong>{{ username }}</strong>,<br>&nbsp;
+    <ul>
+      <li>
+        OmaTalouden avulla voit seurata rahan kulutustasi.
+      </li>
+      <li>
+        Luo omat meno- ja tuloluokat, aseta niille budjetti, kirjaa kuluja ja tuloja sekä vertaa niitä budjettiin.
+      </li>
+    </ul>
+  </div>
+  <div class="col-4"></div>
+
 {% endblock %}
 
-{% block header_3 %}Oletko ensimmäistä kertaa OmaTaloudessa?{% endblock %}
+{% block header_3 %}&nbsp;<br>Oletko ensimmäistä kertaa OmaTaloudessa?<br>&nbsp;{% endblock %}
 
 {% block content_2 %}
 <div class="col-4"></div>
 <div class="col-4">
-<p>Aloita luomalla <a href="\categories">kategorioita</a> ja niille alakategorioita. Esimerkiksi voit luoda kategorian 'vaatteet' ja tälle alakategoriat 'lasten vaatteet' ja 'aikuisten vaatteet'. Kategorialla pitää olla ainakin yksi alakategoria. Laadi tämän jälkeen seuraavalle vuodelle <a href="\budgets">budjetti</a>. Nyt olet valmis syöttämään ensimmäisen <a href="\transactions">tapahtuman</a>. <a href="\summary">Yhteenvedossa</a> voit tarkastella yhteenvetoa eri ajanjaksoina. Tapahtumia voi <a href="\search?time_from=&time_to=&query=">hakea</a> eri kriteereillä.Hauskaa talouden seurantaa</p>
+    <ol>
+      <li>
+        Aloita luomalla <a href="\categories">pääluokkia</a> ja niille alaluokkia. Voit esimerkiksi luoda pääluokan 'Vaatteet' ja sille alaluokan 'Lasten vaatteet'. Pääluokalla täytyy olla ainakin yksi alaluokka.</li>
+      <li>
+        Laadi tämän jälkeen <a href="\budgets">budjetti</a>.
+      </li>
+      <li>
+        Nyt olet valmis syöttämään ensimmäisen <a href="\transactions">tapahtuman</a>.
+      </li>
+      <li>
+        <a href="\summary">Yhteenvedossa</a> voit tarkastella tapahtumien ja budjetin yhteenvetoa eri ajanjaksoina.
+      </li>
+      <li>
+        Tapahtumia voi <a href="\search?time_from=&time_to=&query=">hakea</a> eri kriteereillä.
+      </li>
+    </ol>
 </div>
 <div class="col-4"></div>
 {% endblock %}
@@ -29,5 +55,5 @@ Luo omat kulutuskategoriat, luo niille budjetti, kirjaa kuluja ja seuraa toteutu
 <input type="password" name ="password"></p>
 <input type="submit" value="Kirjaudu">
 </form>
-<a href="/register">Rekisteröidy</a>
+Tai <a href="/register">rekisteröidy</a>
 {% endif %}
