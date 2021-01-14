@@ -6,54 +6,56 @@
 {% endblock %}
 
 {% block content_1 %}
-  <div class="col-4"></div>
-  <div class="col-4">
-    Hei <strong>{{ username }}</strong>,<br>&nbsp;
-    <ul>
-      <li>
-        OmaTalouden avulla voit seurata rahan kulutustasi.
-      </li>
-      <li>
-        Luo omat meno- ja tuloluokat, aseta niille budjetti, kirjaa kuluja ja tuloja sekä vertaa niitä budjettiin.
-      </li>
-    </ul>
-  </div>
-  <div class="col-4"></div>
+    <div class="col-md"></div>
+    <div class="col-md">
+        Hei <strong>{{ username }}</strong>,<br>&nbsp;
+        <ul>
+            <li>
+                OmaTalouden avulla voit seurata rahan kulutustasi.
+            </li>
+            <li>
+                Luo omat meno- ja tuloluokat, aseta niille budjetti, kirjaa kuluja ja tuloja sekä vertaa niitä budjettiin.
+            </li>
+        </ul>
+    </div>
+    <div class="col-md"></div>
 
 {% endblock %}
 
-{% block header_3 %}&nbsp;<br>Oletko ensimmäistä kertaa OmaTaloudessa?<br>&nbsp;{% endblock %}
+{% block header_3 %}Oletko ensimmäistä kertaa OmaTaloudessa?{% endblock %}
 
 {% block content_2 %}
-<div class="col-4"></div>
-<div class="col-4">
+<div class="col-md"></div>
+<div class="col-md">
     <ol>
-      <li>
-        Aloita luomalla <a href="\categories">pääluokkia</a> ja niille alaluokkia. Voit esimerkiksi luoda pääluokan 'Vaatteet' ja sille alaluokan 'Lasten vaatteet'. Pääluokalla täytyy olla ainakin yksi alaluokka.</li>
-      <li>
-        Laadi tämän jälkeen <a href="\budgets">budjetti</a>.
-      </li>
-      <li>
-        Nyt olet valmis syöttämään ensimmäisen <a href="\transactions">tapahtuman</a>.
-      </li>
-      <li>
-        <a href="\summary">Yhteenvedossa</a> voit tarkastella tapahtumien ja budjetin yhteenvetoa eri ajanjaksoina.
-      </li>
-      <li>
-        Tapahtumia voi <a href="\search?time_from=&time_to=&query=">hakea</a> eri kriteereillä.
-      </li>
+        <li>
+            Aloita luomalla <a href="\categories">pääluokkia</a> ja niille alaluokkia. Voit esimerkiksi luoda pääluokan 'Vaatteet' ja sille alaluokan 'Lasten vaatteet'. Pääluokalla täytyy olla ainakin yksi alaluokka.
+        </li>
+        <li>
+            Laadi tämän jälkeen <a href="\budgets">budjetti</a>.
+        </li>
+        <li>
+            Nyt olet valmis syöttämään ensimmäisen <a href="\transactions">tapahtuman</a>.
+        </li>
+        <li>
+            <a href="\summary">Yhteenvedossa</a> voit tarkastella tapahtumien ja budjetin yhteenvetoa eri ajanjaksoina.
+        </li>
+        <li>
+            Tapahtumia voi <a href="\search?time_from=&time_to=&query=">hakea</a> eri kriteereillä.
+        </li>
     </ol>
-</div>
-<div class="col-4"></div>
+  </div>
+  <div class="col-md"></div>
 {% endblock %}
 
 {% else %}
-<form action="/login" method="POST">
-<p>Tunnus:<br>
-<input type="text" name="username"></p>
-<p>Salasana:<br>
-<input type="password" name ="password"></p>
-<input type="submit" value="Kirjaudu">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+<form id="login-form" action="/login" method="POST">
+    <label for="username">Käyttäjänimi:</label>
+    <input type="text" name="username">
+    <label for="password">Salasana:</label>
+    <input type="password" name="password">
+    <input id="login-button" type="submit" value="Kirjaudu">
 </form>
 Tai <a href="/register">rekisteröidy</a>
 {% endif %}
