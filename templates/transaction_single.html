@@ -10,33 +10,41 @@
 {% block header_2 %}Muokkaa{% endblock %}
 {% block content_1 %}
 <form action="/transactions/{{ transaction[3] }}" method="POST">
-<table>
-    <tr>
-        <td class="text-secondary">Aika:</td>
-        <td class="text-secondary">{{ transaction[0].strftime("%d.%m.%Y %H:%M") }}</td>
-    </tr>
-    <tr>
-        <td class="text-secondary">Summa:</td>
-        <td><input type="TEXT" value="{{ transaction[1] }}" name="amount"><td>
-    </tr>
-    <tr>
-        <td class="text-secondary">Kategoria:</td>
-        <td>
-            <select name="category_subcategory">
-                <option value="selected disable hidden">Valitse Kategoria</option>
+    <div class="form-group row">
+        <label for="transactionTime" class="col-sm-4">Aika</label>
+        <div class="col">
+            <span id="transactionTime">{{ transaction[0].strftime("%d.%m.%Y %H:%M") }}<span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="exampleFormControlInput1" class="col-sm-4">Summa <span style="color: red;">*</span></label>
+        <div class="col">
+            <input type="text" class="form-control form-control-sm w-100" name="amount" value="{{ transaction[1] }}">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="exampleFormControlInput1" class="col-sm-4">Luokka <span style="color: red;">*</span></label>
+        <div class="col"> 
+            <select class="form-control form-control-sm w-100" name="category_subcategory">
+                <option>Valitse luokka</option>
                 {% for category_subcategory in categories_subcategories %}
                 <option value="{{ category_subcategory[2] }}">{{ category_subcategory[0] }}: {{ category_subcategory[1] }}</option>
                 {% endfor %}
             </select>
-        </td>
-    </tr>
-    <tr>
-        <td class="text-secondary">Lisätietoja:</td>
-        <td>
-            <input type="TEXT" value="{{ transaction[2] }}" name="description"><input class="btn btn-outline-secondary btn-sm" type="submit" value="Tallenna">
-        </td>
-    </tr>
-</table>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="FormControlTextarea" class="col-sm-4">Lisätietoja</label>
+        <div class="col">
+            <textarea class="form-control form-control-sm w-100" rows="3" name="description" id="FormControlTextarea">{{ transaction[2] }}</textarea>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-4" for="FormControlButton"></label>
+        <div class="col">
+        <input class="btn btn-outline-secondary btn-sm float-left" type="submit" value="Tallenna" id="FormControlButton">
+        </div>
+    </div>
 </form>
 {% endblock %}
 
