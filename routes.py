@@ -96,8 +96,8 @@ def transactions_view():
 
 @app.route("/transactions/<int:id>", methods=["GET","POST"])
 def transaction_edit(id):
+    picture_id = request.args["picture_id"]
     if request.method == "GET":
-        picture_id = request.args["picture_id"]
         transaction = transactions.view_one(id)
         categories_subcategories = categories.category_subcategory_list_all()
         return render_template("transaction_single.html",transaction = transaction,categories_subcategories=categories_subcategories,picture_id=picture_id)
