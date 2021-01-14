@@ -34,3 +34,18 @@ $custom-file-text: (
 #mycaption caption {
     caption-side: top;
 }
+
+
+
+#login-form  {
+    display: grid;
+    max-width: 15em;
+    grid-template-columns: 6em 10em;
+    grid-row-gap: .3em;
+}
+
+form #login-button {
+    grid-column-start: 2;
+    text-align: center;
+    width: 5em;
+}
