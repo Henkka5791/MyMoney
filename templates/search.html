@@ -6,10 +6,12 @@
 
 {% block content_1 %}
 <form action="/search" method="GET">
-    <input type="date" name="time_from">
-    <input type="date" name="time_to">
-    <input type="text" name="query">
-    <input type="submit" value="Hae">
+    <div class="form-group">
+        <input class="text-secondary" type="date" name="time_from">
+        <input type="date" name="time_to">
+        <input type="text" name="query">
+        <input type="submit" value="Hae">
+    </div>
 </form>
 {% endblock %}
 
