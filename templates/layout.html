@@ -9,7 +9,8 @@
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
         <title>{% block title %}{% endblock %}</title>
     </head>
-    <body class="bg-light">
+
+    <body class="bg-light text-secondary mx-2">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
                 <button 
@@ -50,32 +51,32 @@
                 </ul>
             </div>
         </nav>
-        <div class="container-fluid mx-2 bg-light border-bottom">
-            <header class="text-center text-secondary">
+
+        <div class="container-fluid mx-2 border-bottom">
+            <header class="text-center">
             {% block header %}{% endblock %}
             </header>
         </div>
-            {% for message in get_flashed_messages() %}
-            <div class="flash">{{ message }}</div>
-            {% endfor %}
-        <div class="container-fluid m-2 pb-2 bg-light border-bottom">
+        <div class="container-fluid py-2 bg-light border-bottom">
             <div class="row justify-content-md-center">
-                <h4 class="text-secondary">{% block header_2 %}{% endblock %}</h4>
+                <h4 class="py-2">{% block header_2 %}{% endblock %}</h4>
             </div>
             <div class="row justify-content-md-center">
                 {% block content_1 %}{% endblock %}
             </div>
         </div>
-        <div class="container-fluid m-2 pb-2 bg-light border-bottom">
+        <div class="container-fluid py-2 bg-light border-bottom">
             <div class="row justify-content-md-center">
-                <h4 class="text-secondary">{% block header_3 %}{% endblock %}</h4>
+                <h4 class="py-2">{% block header_3 %}{% endblock %}</h4>
             </div>
             <div class="row justify-content-md-center">
                 {% block content_2 %}{% endblock %}
             </div>
         </div>
+
     {% block scripts %}
     {% endblock %}
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
