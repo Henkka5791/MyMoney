@@ -50,7 +50,7 @@
                 <td>{{ budget[0] }}</td>
                 <td class="text-right">{{ budget[1] }}</td>
                 <td class="text-center">{{ budget[2]|int }}</td>
-                <td><input class="w-5" type="TEXT" value="{{ budget[1] }}" name="amount">
+                <td><input class="text-secondary" type="TEXT" value="{{ budget[1] }}" name="amount">
                 <input type="HIDDEN" value="{{ budget[3] }}" name="budget_id"></td>
             </tr>
             {% endfor %}
