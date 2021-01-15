@@ -2,7 +2,7 @@ from app import app
 from flask import redirect, render_template, request, session,make_response
 import accounts
 import categories, transactions, budgets,summary,search
-from datetime import datetime
+from datetime import datetime,timedelta
 
 @app.route("/")
 def index():
@@ -172,26 +172,26 @@ def show(id):
 
 @app.route("/search")
 def view_search():
-    time_to=""
-    time_from=""
-    if not request.args["time_from"]:
-        times = search.first_and_last()
-        time_from = times[0]
-    else:
-        time_from = request.args["time_from"]+" "+"00:00:00"
-        time_from = datetime.strptime(time_from,"%Y-%m-%d %H:%M:%S")
-    if not request.args["time_to"]:
-        times = search.first_and_last()
-        time_to = times[1]
-    else:
-        time_to = request.args["time_to"]+" "+"23:59:59"
-        time_to = datetime.strptime(time_to,"%Y-%m-%d %H:%M:%S")
-    if not request.args["query"]:
-        query=""
-    else:
+    try:
+        time_from = request.args["time_from"]
+        time_to = request.args["time_to"]
+        if time_from == "":
+            time_from = datetime.now()-timedelta(days=30)
+        else:
+            time_from = time_from+" "+"00:00:00"
+            time_from = datetime.strptime(time_from,"%Y-%m-%d %H:%M:%S")
+        if time_to == "":
+            time_to = datetime.now()
+        else:
+            time_to = request.args["time_to"]+" "+"23:59:59"
+            time_to = datetime.strptime(time_to,"%Y-%m-%d %H:%M:%S")
+        if time_from > time_to:
+            time_to = time_from + timedelta(days=30)
         query = request.args["query"]
-
-    transaction_list = search.find(time_from,time_to,query)
-    if query=="":
-        query = "ei hakusanaa"
-    return render_template("search.html",transaction_list=transaction_list,time_from=time_from,time_to=time_to,query=query)
+        transaction_list = search.find(time_from,time_to,query)
+        if query == "":
+            query = "ei hakusanaa"
+        return render_template("search.html",transaction_list=transaction_list,time_from=time_from,time_to=time_to,query=query)
+    except:
+        print("except search")
+        return render_template("search.html",transaction_list=[],time_from="",time_to="",query="")
