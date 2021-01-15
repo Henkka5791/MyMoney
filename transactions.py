@@ -41,8 +41,9 @@ def is_outcome(subcategory_id):
     return False
 
 def view_one(id):
-    sql = "SELECT t.created_at,t.amount,t.description,t.id,c.name,s.name,p.data FROM categories c, subcategories s,transactions t LEFT JOIN pictures p ON p.id=t.picture_id WHERE t.id=:id AND t.subcategory_id=s.id AND c.id = s.category_id"
-    result = db.session.execute(sql,{"id":id})
+    account_id=accounts.user_id()
+    sql = "SELECT t.created_at,t.amount,t.description,t.id,c.name,s.name,p.id FROM categories c, subcategories s,transactions t LEFT JOIN pictures p ON p.id=t.picture_id WHERE t.id=:id AND t.subcategory_id=s.id AND c.id = s.category_id AND c.account_id=:account_id"
+    result = db.session.execute(sql,{"id":id,"account_id":account_id})
     transaction = result.fetchone()
     return transaction 
 
@@ -60,11 +61,22 @@ def remove(id):
     visible = 0
     try:
         sql="UPDATE transactions SET visible=:visible WHERE id=:id"
-        resul = db.session.execute(sql,{"visible":visible,"id":id})
+        result = db.session.execute(sql,{"visible":visible,"id":id})
         db.session.commit()
         return True
     except:
         return False
+
+def valid_picture_id(transaction_id,picture_id):
+    visible = 1
+    sql ='''SELECT p.id FROM pictures p,transactions t WHERE t.id=:transaction_id AND p.id=:picture_id AND p.visible=:visible'''
+    result = db.session.execute(sql,{"transaction_id":transaction_id,"picture_id":picture_id,"visible":visible})
+    picture_id = result.fetchone()[0]
+    print(picture_id)
+    if picture_id == None:
+        print("On nolla")
+        picture_id = 0
+    return picture_id
 
 def show_picture(id):
     try:
