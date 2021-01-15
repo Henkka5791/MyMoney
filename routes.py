@@ -96,9 +96,11 @@ def transactions_view():
 
 @app.route("/transactions/<int:id>", methods=["GET","POST"])
 def transaction_edit(id):
-    picture_id = request.args["picture_id"]
     if request.method == "GET":
         transaction = transactions.view_one(id)
+        picture_id = transaction[6]
+        if picture_id == "None":
+            picture_id = 0
         categories_subcategories = categories.category_subcategory_list_all()
         return render_template("transaction_single.html",transaction = transaction,categories_subcategories=categories_subcategories,picture_id=picture_id)
     if request.method == "POST":     
@@ -172,8 +174,6 @@ def show(id):
 def view_search():
     time_to=""
     time_from=""
-    print(time_from)
-    print(type(request.args["time_from"]))
     if not request.args["time_from"]:
         times = search.first_and_last()
         time_from = times[0]
@@ -186,7 +186,6 @@ def view_search():
     else:
         time_to = request.args["time_to"]+" "+"23:59:59"
         time_to = datetime.strptime(time_to,"%Y-%m-%d %H:%M:%S")
-        print(time_from,time_to)
     if not request.args["query"]:
         query=""
     else:
