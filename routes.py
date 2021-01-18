@@ -1,5 +1,5 @@
 from app import app
-from flask import redirect, render_template, request, session,make_response
+from flask import redirect, render_template, request, session,make_response,flash
 import accounts
 import categories, transactions, budgets,summary,search
 from datetime import datetime,timedelta
@@ -98,17 +98,21 @@ def transactions_view():
 def transaction_edit(id):
     if request.method == "GET":
         transaction = transactions.view_one(id)
-        picture_id = transaction[6]
-        if picture_id == "None":
+        picture_id = transaction[4]
+        visible = transaction[5]
+        if visible == 0:
             picture_id = 0
         categories_subcategories = categories.category_subcategory_list_all()
         return render_template("transaction_single.html",transaction = transaction,categories_subcategories=categories_subcategories,picture_id=picture_id)
-    if request.method == "POST":     
+    if request.method == "POST":
         subcategory_id = request.form["category_subcategory"]
         amount = request.form["amount"]
         description = request.form["description"]
-        if transactions.update(subcategory_id,amount,description,id):
-            return redirect("/transactions")
+        file = request.files["file"]
+        file = file.read()
+        if transactions.update(subcategory_id,amount,description,id,file):
+            flash(f" Muokattu")
+            return redirect("/transactions/"+str(id))
         else:
             return render_template("error.html", error="Tapahtuman muokkaus ei onnistunut")
 
@@ -158,17 +162,19 @@ def summary_result():
         times = summary.set_days(time_from,time_to)
         return render_template("summary.html", monthly_result=monthly_result,total=total,by_categories=by_categories,time_from=times[0],time_to=times[1])
     except:
-        print("except")
         return render_template("summary.html",monthly_result=[],total=[],time_from="", time_to="")
 
-#@app.route("/transactions/pictures/<int:id>")
-#def show_pictures(id):
-#    return render_template("picture.html",id=id)
-
 @app.route("/transactions/pictures/<int:id>/show")
-def show(id):
+def show(id): 
     picture = transactions.show_picture(id)
     return picture
+
+@app.route("/transactions/<int:id>/picture/remove",methods=["POST"])
+def remove_picture(id):
+    if transactions.picture_remove(id):
+        return redirect("/transactions/"+str(id))
+    else:
+        return render_template("error.html", error="Kuitin poistamine ei onnistunut")
 
 @app.route("/search")
 def view_search():
@@ -193,5 +199,4 @@ def view_search():
             query = "ei hakusanaa"
         return render_template("search.html",transaction_list=transaction_list,time_from=time_from,time_to=time_to,query=query)
     except:
-        print("except search")
         return render_template("search.html",transaction_list=[],time_from="",time_to="",query="")
