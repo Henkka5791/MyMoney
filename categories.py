@@ -37,6 +37,8 @@ def category_subcategory_list_all():
 
 def add_category(name,outcome):
     account_id = accounts.user_id()
+    if in_categories(name,account_id):
+        return False
     try:
         sql = "INSERT INTO categories (name, outcome, account_id) VALUES (:name,:outcome,:account_id) RETURNING ID"
         result = db.session.execute(sql,{"name":name,"outcome":outcome,"account_id":account_id})
@@ -45,7 +47,6 @@ def add_category(name,outcome):
         for year in years:
             year = int(year[0])
             if budgets.category_not_in_budget(year,category_id):
-                print("Ei budjetissa")
                 budgets.budget_add_category(year,category_id)
         db.session.commit()
         return True
@@ -97,3 +98,12 @@ def subcategory_remove(id):
         return True
     except:
         return False
+
+def in_categories(name,id):
+    visible = 1
+    sql ='''SELECT 1 from categories WHERE UPPER(name)=UPPER(:name) AND account_id=:id AND visible=:visible'''
+    result = db.session.execute(sql,{"name":name,"id":id,"visible":visible})
+    if result.fetchone() != None:
+        return True
+    return False
+
