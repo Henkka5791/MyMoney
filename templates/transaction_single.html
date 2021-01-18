@@ -4,12 +4,14 @@
 {% endblock %}
 
 {% block header %}
-  <h1>{% block title %}Tapahtuma{% endblock %}</h1>
+    {% block title %}Tapahtuma{% endblock %}
+    <button type="button" class="btn btn-primary btn-sm" data-container="body" data-toggle="popover" data-placement="bottom" data-content="Summa pitää antaa numeroina ja luokka pitää valita. Lisätiedot ja kuva kuitista eivät ole pakollisia. Lisätietoihin voi tallettaa maksimissaan 250 merkkiä.">?</button>
 {% endblock %}
 
 {% block header_2 %}Muokkaa{% endblock %}
+
 {% block content_1 %}
-<form action="/transactions/{{ transaction[3] }}" method="POST">
+<form action="/transactions/{{ transaction[3] }}" method="POST" enctype="multipart/form-data">
     <div class="form-group row">
         <label for="transactionTime" class="col-sm-4">Aika</label>
         <div class="col">
@@ -36,29 +38,40 @@
     <div class="form-group row">
         <label for="FormControlTextarea" class="col-sm-4">Lisätietoja</label>
         <div class="col">
-            <textarea class="form-control form-control-sm w-100" rows="3" name="description" id="FormControlTextarea">{{ transaction[2] }}</textarea>
+            <textarea class="form-control form-control-sm w-100" rows="3" name="description" id="FormControlTextarea" maxlength="250">{{ transaction[2] }}</textarea>
         </div>
     </div>
     <div class="form-group row">
-        <label class="col-sm-4" for="FormControlButton"></label>
+        <label class="col-sm-4" for="FormControlFile">Kuitti</label>
         <div class="col">
-        <input class="btn btn-outline-secondary btn-sm float-left" type="submit" value="Tallenna" id="FormControlButton">
+            <input class="form-control-file form-control-file-sm float-left" type="file" name="file" id="FormControlFile">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-4" for="FormControlButton">
+            {% for message in get_flashed_messages() %}
+                <p style="color:red"><strong>{{ message }}</strong></p>
+            {% endfor %}
+        </label>
+        <div class="col">
+        <input class="btn btn-outline-secondary btn-sm float-left" type="submit" value="Tallenna" id="FormControlButton"><br>
         </div>
     </div>
 </form>
 {% endblock %}
 
-{% if picture_id is none %}
-Ei kuvaa
-{% else %}
-kuva {{ picture_id }}
-<img src="/transactions/pictures/{{ picture_id }}/show">
-{% endif %}
-
-
 {% block content_2 %}
 {% if picture_id|int != 0 %}
-<img src="/transactions/pictures/{{ picture_id }}/show">
+<div class="row">
+    <div class="col"><img src="/transactions/pictures/{{ picture_id }}/show"></div>
+</div>
+<div class="row">
+    <div class="col">
+        <form action="/transactions/{{ transaction[3] }}/picture/remove" method="POST">
+            <input class="btn btn-outline-secondary btn-sm float-left" type="submit" value="Poista" id="FormControlButton">
+        </form>
+    </div>
+</div>
 {% endif %}
 
 {% endblock %}
