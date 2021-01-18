@@ -24,14 +24,14 @@ def find(time_from,time_to,query):
     id = accounts.user_id()
     visible = 1
     sql ='''SELECT 
-                t.created_at,ROUND(t.amount::numeric,2),c.name,s.name,t.description,t.id,p.id 
+                t.created_at,ROUND(t.amount::numeric,2),c.name,s.name,t.description,t.id,p.id,p.visible 
             FROM 
                 categories c,subcategories s,transactions t 
             LEFT JOIN pictures p ON p.id=t.picture_id 
             WHERE
-                (t.description LIKE :query
-                OR c.name LIKE :query
-                OR s.name LIKE :query)
+                (UPPER(t.description) LIKE UPPER(:query)
+                OR UPPER(c.name) LIKE UPPER(:query)
+                OR UPPER(s.name) LIKE UPPER(:query))
                 AND t.created_at>=:time_from
                 AND t.created_at<=:time_to 
                 AND t.visible=:visible 
