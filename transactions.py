@@ -85,9 +85,7 @@ def valid_picture_id(transaction_id,picture_id):
     sql ='''SELECT p.id FROM pictures p,transactions t WHERE t.id=:transaction_id AND p.id=:picture_id AND p.visible=:visible'''
     result = db.session.execute(sql,{"transaction_id":transaction_id,"picture_id":picture_id,"visible":visible})
     picture_id = result.fetchone()[0]
-    print(picture_id)
     if picture_id == None:
-        print("On nolla")
         picture_id = 0
     return picture_id
 
@@ -121,13 +119,12 @@ def get_picture_id(transaction_id):
     return picture_id
 
 def picture_remove(transaction_id):
-    #try:
+    try:
         picture_id = get_picture_id(transaction_id)
-        print(picture_id)
         visible = 0
         sql = '''UPDATE pictures SET visible=:visible WHERE id=:picture_id'''
         db.session.execute(sql,{"visible":visible,"picture_id":picture_id})
         db.session.commit()
         return True
-    #except:
-    #    return False
+    except:
+        return False
