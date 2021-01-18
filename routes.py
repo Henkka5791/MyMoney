@@ -47,7 +47,7 @@ def category_view():
         if categories.add_category(name,outcome):
             return redirect("/categories")
         else:
-            return render_template("categories.html",error_message="Kategorian lisääminen ei onnistunut")
+            return render_template("error.html",error_message="Kategorian lisääminen ei onnistunut")
 
 @app.route("/categories/<int:id>",methods=["GET","POST"])
 def subcategory_view(id):
@@ -144,7 +144,6 @@ def budget_edit(year):
     if request.method == "POST":
         budget_ids = request.form.getlist("budget_id")
         amounts = request.form.getlist("amount")
-        print("budget_ids: "+str(len(budget_ids))+"amounts: "+str(len(amounts)))
         if budgets.budget_update(budget_ids,amounts):
             year = int(year)
             return redirect("/budgets/"+str(year))
