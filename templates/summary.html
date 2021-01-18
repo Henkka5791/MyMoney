@@ -8,12 +8,11 @@
 
 {% block content_1 %}
 <form action="/summary" method="GET">
-    <input type="month" name="time_from">
-    <input type="month" name="time_to">
-    <input type="submit" value="Hae">
+    <input class="text-secondary" type="month" name="time_from">
+    <input class="text-secondary" type="month" name="time_to">
+    <input class="btn btn-outline-secondary btn-sm" type="submit" value="Hae">
 </form>
 {% endblock %}
-
 
 {% block header_3 %}
 {% if time_from %}
