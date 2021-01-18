@@ -7,7 +7,7 @@
 
 {% block content_1 %}
     <div class="col-md"></div>
-    <div class="col-md">
+    <div class="col-md bg-white rounded p-2 border">
         Hei <strong>{{ username }}</strong>,<br>&nbsp;
         <ul>
             <li>
@@ -26,22 +26,22 @@
 
 {% block content_2 %}
 <div class="col-md"></div>
-<div class="col-md">
-    <ol>
+<div class="col-md bg-white rounded p-2 border">
+    <ol class="">
         <li>
-            Aloita luomalla <a href="\categories">pääluokkia</a> ja niille alaluokkia. Voit esimerkiksi luoda pääluokan 'Vaatteet' ja sille alaluokan 'Lasten vaatteet'. Pääluokalla täytyy olla ainakin yksi alaluokka.
+            Aloita luomalla <a href="\categories" class="text-secondary"><strong>pääluokkia</strong></a> ja niille alaluokkia. Voit esimerkiksi luoda pääluokan 'Vaatteet' ja sille alaluokan 'Lasten vaatteet'. Pääluokalla täytyy olla ainakin yksi alaluokka.
         </li>
         <li>
-            Laadi tämän jälkeen <a href="\budgets">budjetti</a>.
+            Laadi tämän jälkeen <a href="\budgets" class="text-secondary"><strong>budjetti</strong></a></a>.
         </li>
         <li>
-            Nyt olet valmis syöttämään ensimmäisen <a href="\transactions">tapahtuman</a>.
+            Nyt olet valmis syöttämään ensimmäisen <a href="\transactions" class="text-secondary"><strong>tapahtuman</strong></a></a>.
         </li>
         <li>
-            <a href="\summary">Yhteenvedossa</a> voit tarkastella tapahtumien ja budjetin yhteenvetoa eri ajanjaksoina.
+            <a href="\summary" class="text-secondary"><strong>Yhteenvedossa</strong></a></a> voit tarkastella tapahtumien ja budjetin yhteenvetoa eri ajanjaksoina.
         </li>
         <li>
-            Tapahtumia voi <a href="\search?time_from=&time_to=&query=">hakea</a> eri kriteereillä.
+            Tapahtumia voi <a href="\search" class="text-secondary"><strong>hakea</strong></a></a> eri kriteereillä.
         </li>
     </ol>
   </div>
