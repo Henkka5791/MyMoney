@@ -54,7 +54,7 @@
 
         <div class="container-fluid mx-2 border-bottom">
             <header class="text-center">
-            {% block header %}{% endblock %}
+            <h1>{% block header %}{% endblock %}</h1>
             </header>
         </div>
         <div class="container-fluid py-2 bg-light border-bottom">
@@ -62,7 +62,8 @@
                 <h4 class="py-2">{% block header_2 %}{% endblock %}</h4>
             </div>
             <div class="row justify-content-md-center">
-                {% block content_1 %}{% endblock %}
+                {% block content_1 %}
+                {% endblock %}
             </div>
         </div>
         <div class="container-fluid py-2 bg-light border-bottom">
@@ -81,5 +82,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/bootstrap-table@1.18.1/dist/bootstrap-table.min.js"></script>
+    <script>
+        $(document).ready(function(){
+          $('[data-toggle="popover"]').popover();   
+        });
+        </script>
     </body>
 </html>
