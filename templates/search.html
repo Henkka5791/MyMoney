@@ -43,7 +43,8 @@ Tulokset: <span style="color:blue">{{ time_from.strftime("%d.%m.%Y") }} - {{ tim
         <td class="text-center">{{ transaction[2] }}</td>  
         <td class="text-center">{{ transaction[3] }}</td>
         <td>{{ transaction[4] }}</td>
-        <td>{% if transaction[6] is not none %}
+        <td>{{ transaction[6] }}</td>
+        <td>{% if transaction[7]|int != 0 %}
             <form action="/transactions/pictures/{{ transaction[6] }}/show" method="GET">
                 <input class="btn btn-outline-secondary btn-sm" type="submit" value="Näytä">
             </form>
