@@ -16,6 +16,10 @@ def login(username,password):
             return False
 
 def register(username, password):
+    if len(username) < 4 or len(password) < 6:
+        return False
+    if is_in_usernames(username):
+        return False
     hash_value = generate_password_hash(password)
     try: 
         sql = "INSERT INTO accounts (username,password) VALUES (:username,:password)"
@@ -39,3 +43,13 @@ def get_username():
         result = db.session.execute(sql,{"id":id})
         username = result.fetchone()[0]
     return username
+
+def is_in_usernames(username):
+    visible = 1
+    sql ='''SELECT 1 
+            FROM accounts 
+            WHERE username=:username AND visible=:visible'''
+    result = db.session.execute(sql,{"username":username,"visible":visible})
+    if result.fetchone() != None:
+        return True
+    return False
