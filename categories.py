@@ -71,6 +71,9 @@ def category_id(name):
     sql = "SELECT id FROM categories"
 
 def add_subcategory(name,category_id):
+    account_id = accounts.user_id()
+    if in_subcategory(name,account_id):
+        return False
     try:
         sql = "INSERT INTO subcategories(name,category_id) VALUES (:name,:category_id)"
         db.session.execute(sql,{"name":name,"category_id":category_id})
@@ -107,3 +110,16 @@ def in_categories(name,id):
         return True
     return False
 
+def in_subcategory(name,id):
+    visible = 1
+    sql ='''SELECT 1 
+            FROM subcategories s, categories c 
+            WHERE 
+                UPPER(s.name)=UPPER(:name) AND 
+                s.category_id=c.id AND
+                c.account_id=:id AND
+                s.visible=:visible'''
+    result = db.session.execute(sql, {"name":name,"id":id,"visible":visible})
+    if result.fetchone() != None:
+        return True
+    return False
