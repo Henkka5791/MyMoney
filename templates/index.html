@@ -57,5 +57,8 @@
     <input type="password" name="password">
     <input id="login-button" type="submit" value="Kirjaudu">
 </form>
-Tai <a href="/register">rekisteröidy</a>
+Tai <a href="/register">rekisteröidy</a><br><br>
+{% for message in get_flashed_messages() %}
+    <p style="color:red"><strong>{{ message }}</strong></p>
+    {% endfor %}
 {% endif %}
