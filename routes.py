@@ -28,7 +28,11 @@ def register():
         if accounts.register(username,password):
             return redirect("/")
         else:
-            return render_template("register.html",error_message="Rekisteröinti ei onnistunut")
+            if accounts.is_in_usernames(username):
+                error_username = "Käyttäjätunnus on jo käytössä"
+            else:
+                error_username = ""
+            return render_template("register.html",error_message="Error",error_username=error_username)
 
 @app.route("/logout")
 def logout():
