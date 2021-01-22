@@ -1,10 +1,14 @@
 <form action="/register" method="POST">
 <p>Tunnus:<br>
-<input type="text" name="username"></p>
+<input type="text" name="username"> Vähintään 4 merkkiä</p>
 <p>Salasana:<br>
-<input type="password" name ="password"></p>
+<input type="password" name ="password"> Vähintään 6 merkkiä</p>
 <input type="submit" value="Rekisteröidy">
 </form>
 {% if error_message %}
-<p>Rekisteröinti ei onnistunut, yritä uudelleen</p>
+<p>Rekisteröinti ei onnistunut, yritä uudelleen.</p>
+{% if error_username != "" %}
+<p>Käyttäjätunnus on jo käytössä.</p>
+{% endif %}
+<p>Käyttäjätunnuksen pituus pitää olla vähintään 4 merkkiä ja salasanan vähintään 6 merkkiä.</p>
 {% endif %}
