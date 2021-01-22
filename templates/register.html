@@ -7,8 +7,7 @@
 </form>
 {% if error_message %}
 <p>Rekisteröinti ei onnistunut, yritä uudelleen.</p>
-{% if error_username != "" %}
-<p>Käyttäjätunnus on jo käytössä.</p>
-{% endif %}
-<p>Käyttäjätunnuksen pituus pitää olla vähintään 4 merkkiä ja salasanan vähintään 6 merkkiä.</p>
+{% for message in get_flashed_messages() %}
+    <p style="color:red"><strong>{{ message }}</strong></p>
+{% endfor %}
 {% endif %}
