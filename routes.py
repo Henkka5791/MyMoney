@@ -15,8 +15,9 @@ def login():
     password = request.form["password"]
     if accounts.login(username, password):
         return redirect("/")
-    else: 
-       return render_template("error.html", error = "Väärä tunnus tai salasana")
+    else:
+        flash(f"Väärä käyttäjätunnus tai salasana")
+        return render_template("index.html")
 
 @app.route("/register", methods=["GET","POST"])
 def register():
@@ -29,10 +30,10 @@ def register():
             return redirect("/")
         else:
             if accounts.is_in_usernames(username):
-                error_username = "Käyttäjätunnus on jo käytössä"
+                flash(f"Käyttäjätunnus on jo käytössä")
             else:
-                error_username = ""
-            return render_template("register.html",error_message="Error",error_username=error_username)
+                flash(f"Käyttäjätunnuksen pitää olla vähintään 4 merkkiä pitkä ja salasanan vähintään 6 merkkiä pitkä.")
+            return render_template("register.html",error_message="error")
 
 @app.route("/logout")
 def logout():
