@@ -1,8 +1,8 @@
 from app import app
-from flask import redirect, render_template, request, session,make_response,flash
+from flask import redirect, render_template, request, session, make_response,flash
 import accounts
-import categories, transactions, budgets,summary,search
-from datetime import datetime,timedelta
+import categories, transactions, budgets, summary, search
+from datetime import datetime, timedelta
 
 @app.route("/")
 def index():
@@ -26,35 +26,35 @@ def register():
     if request.method == "POST":
         username = request.form["username"]
         password = request.form["password"]
-        if accounts.register(username,password):
+        if accounts.register(username, password):
             return redirect("/")
         else:
             if accounts.is_in_usernames(username):
                 flash(f"Käyttäjätunnus on jo käytössä")
             else:
                 flash(f"Käyttäjätunnuksen pitää olla vähintään 4 merkkiä pitkä ja salasanan vähintään 6 merkkiä pitkä.")
-            return render_template("register.html",error_message="error")
+            return render_template("register.html", error_message="error")
 
 @app.route("/logout")
 def logout():
     accounts.logout()
     return redirect("/")
 
-@app.route("/categories", methods=["GET","POST"])
+@app.route("/categories", methods=["GET", "POST"])
 def category_view():
     if request.method == "GET":
         incomes = categories.income_categories()
         outcomes = categories.outcome_categories()
-        return render_template("categories.html",incomes = incomes, outcomes = outcomes)
+        return render_template("categories.html", incomes=incomes, outcomes=outcomes)
     if request.method == "POST":
         name = request.form["name"]
         outcome = request.form["outcome"]
-        if categories.add_category(name,outcome):
+        if categories.add_category(name, outcome):
             return redirect("/categories")
         else:
-            return render_template("error.html",error_message="Kategorian lisääminen ei onnistunut")
+            return render_template("error.html", error_message="Kategorian lisääminen ei onnistunut")
 
-@app.route("/categories/<int:id>",methods=["GET","POST"])
+@app.route("/categories/<int:id>", methods=["GET","POST"])
 def subcategory_view(id):
     if request.method == "GET":
         subcategory_list = categories.subcategory_list(id)
@@ -68,25 +68,26 @@ def subcategory_view(id):
         else:
             return render_template("error.html", error="Alakategorian lisäy ei onnistunut")
 
-@app.route("/categories/<int:id>/remove",methods=["POST"])
+@app.route("/categories/<int:id>/remove", methods=["POST"])
 def category_remove(id):
     if categories.category_remove(id):
         return redirect("/categories")
     return render_template("error.html", error="Kategorian poisto ei onnistunut")
 
-@app.route("/categories/<int:id>/<int:sub_id>",methods=["POST"])
+@app.route("/categories/<int:id>/<int:sub_id>", methods=["POST"])
 def subcategory_remove(id,sub_id):
     if categories.subcategory_remove(sub_id):
         return redirect("/categories/"+str(id))
     else:
         return render_template("error.html", error="Alakategorian poisto ei onnistunut")
 
-@app.route("/transactions", methods=["GET","POST"])
+@app.route("/transactions", methods=["GET", "POST"])
 def transactions_view():
     if request.method == "GET":
         categories_subcategories = categories.category_subcategory_list_all()
         transactions_list = transactions.list()
-        return render_template("transactions.html",categories_subcategories = categories_subcategories, transactions_list = transactions_list)
+        return render_template("transactions.html",\
+             categories_subcategories=categories_subcategories, transactions_list=transactions_list)
     if request.method == "POST":
         subcategory_id = request.form["category_subcategory"]
         amount = request.form["amount"]
@@ -94,12 +95,12 @@ def transactions_view():
         file = request.files["file"]
         data = file.read()
         name = file.filename
-        if transactions.add(subcategory_id,amount,description,data,name):
+        if transactions.add(subcategory_id, amount, description, data, name):
             return redirect("/transactions")
         else:
             return render_template("error.html", error="Tapahtuman lisäys ei onnistunut")
 
-@app.route("/transactions/<int:id>", methods=["GET","POST"])
+@app.route("/transactions/<int:id>", methods=["GET", "POST"])
 def transaction_edit(id):
     if request.method == "GET":
         transaction = transactions.view_one(id)
@@ -108,31 +109,32 @@ def transaction_edit(id):
         if visible == 0:
             picture_id = 0
         categories_subcategories = categories.category_subcategory_list_all()
-        return render_template("transaction_single.html",transaction = transaction,categories_subcategories=categories_subcategories,picture_id=picture_id)
+        return render_template("transaction_single.html",\
+             transaction=transaction, categories_subcategories=categories_subcategories, picture_id=picture_id)
     if request.method == "POST":
         subcategory_id = request.form["category_subcategory"]
         amount = request.form["amount"]
         description = request.form["description"]
         file = request.files["file"]
         file = file.read()
-        if transactions.update(subcategory_id,amount,description,id,file):
+        if transactions.update(subcategory_id, amount, description, id, file):
             flash(f" Muokattu")
             return redirect("/transactions/"+str(id))
         else:
             return render_template("error.html", error="Tapahtuman muokkaus ei onnistunut")
 
-@app.route("/transactions/<int:id>/remove",methods=["GET","POST"])
+@app.route("/transactions/<int:id>/remove",methods=["GET", "POST"])
 def transaction_remove(id):
     if transactions.remove(id):
         return redirect("/transactions")
     else:
         return render_template("error.html", error="Tapahtuman poistaminen ei onnistunut")
 
-@app.route("/budgets",methods=["GET","POST"])
+@app.route("/budgets",methods=["GET", "POST"])
 def budget_create():
     if request.method == "GET":
         years = budgets.budget_years()
-        return render_template("budgets.html",years=years)
+        return render_template("budgets.html", years=years)
     if request.method == "POST":
         year = request.form["year"]
         if budgets.create_budget(year):
@@ -140,12 +142,12 @@ def budget_create():
         else:
             return render_template("error.html", error="Budjetin luonti ei onnistunut")
 
-@app.route("/budgets/<int:year>",methods=["GET","POST"])
+@app.route("/budgets/<int:year>",methods=["GET", "POST"])
 def budget_edit(year):
     if request.method == "GET":
         year_budget = budgets.budget_list(year)
         sums = budgets.budget_sum(year)
-        return render_template("budget_year.html",year=year,year_budget=year_budget,sums=sums)
+        return render_template("budget_year.html", year=year, year_budget=year_budget, sums=sums)
     if request.method == "POST":
         budget_ids = request.form.getlist("budget_id")
         amounts = request.form.getlist("amount")
@@ -164,9 +166,10 @@ def summary_result():
         total = summary.total_sum(time_from,time_to)
         by_categories = summary.by_categories(time_from,time_to)
         times = summary.set_days(time_from,time_to)
-        return render_template("summary.html", monthly_result=monthly_result,total=total,by_categories=by_categories,time_from=times[0],time_to=times[1])
+        return render_template("summary.html",\
+            monthly_result=monthly_result, total=total, by_categories=by_categories, time_from=times[0], time_to=times[1])
     except:
-        return render_template("summary.html",monthly_result=[],total=[],time_from="", time_to="")
+        return render_template("summary.html", monthly_result=[], total=[], time_from="", time_to="")
 
 @app.route("/transactions/pictures/<int:id>/show")
 def show(id): 
@@ -189,18 +192,19 @@ def view_search():
             time_from = datetime.now()-timedelta(days=30)
         else:
             time_from = time_from+" "+"00:00:00"
-            time_from = datetime.strptime(time_from,"%Y-%m-%d %H:%M:%S")
+            time_from = datetime.strptime(time_from, "%Y-%m-%d %H:%M:%S")
         if time_to == "":
             time_to = datetime.now()
         else:
             time_to = request.args["time_to"]+" "+"23:59:59"
-            time_to = datetime.strptime(time_to,"%Y-%m-%d %H:%M:%S")
+            time_to = datetime.strptime(time_to, "%Y-%m-%d %H:%M:%S")
         if time_from > time_to:
             time_to = time_from + timedelta(days=30)
         query = request.args["query"]
-        transaction_list = search.find(time_from,time_to,query)
+        transaction_list = search.find(time_from, time_to,query)
         if query == "":
             query = "ei hakusanaa"
-        return render_template("search.html",transaction_list=transaction_list,time_from=time_from,time_to=time_to,query=query)
+        return render_template("search.html", \
+            transaction_list=transaction_list, time_from=time_from, time_to=time_to, query=query)
     except:
-        return render_template("search.html",transaction_list=[],time_from="",time_to="",query="")
+        return render_template("search.html", transaction_list=[], time_from="", time_to="", query="")

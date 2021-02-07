@@ -19,8 +19,7 @@ def first_and_last():
     times = result.fetchone()
     return times
 
-def find(time_from,time_to,query):
-    print(time_from,time_to,query)
+def find(time_from, time_to, query):
     id = accounts.user_id()
     visible = 1
     sql ='''SELECT 
@@ -42,6 +41,6 @@ def find(time_from,time_to,query):
                 AND c.account_id=:id
             ORDER BY 
                 t.created_at,c.name,s.name DESC LIMIT 100'''
-    result=db.session.execute(sql,{"query":"%"+query+"%","time_from":time_from,"time_to":time_to,"visible":visible,"id":id})
+    result=db.session.execute(sql, {"query":"%"+query+"%", "time_from":time_from, "time_to":time_to, "visible":visible, "id":id})
     transaction_list=result.fetchall()
     return transaction_list

@@ -2,7 +2,7 @@ from db import db
 from flask import session
 from werkzeug.security import check_password_hash, generate_password_hash
 
-def login(username,password):
+def login(username, password):
     sql = "SELECT password, id FROM accounts WHERE username=:username"
     result = db.session.execute(sql, {"username":username})
     user = result.fetchone()
@@ -40,7 +40,7 @@ def get_username():
     if user_id() != 0:
         id = user_id()
         sql = "SELECT username FROM accounts WHERE id=:id"
-        result = db.session.execute(sql,{"id":id})
+        result = db.session.execute(sql, {"id":id})
         username = result.fetchone()[0]
     return username
 
@@ -49,7 +49,7 @@ def is_in_usernames(username):
     sql ='''SELECT 1 
             FROM accounts 
             WHERE username=:username AND visible=:visible'''
-    result = db.session.execute(sql,{"username":username,"visible":visible})
+    result = db.session.execute(sql,{"username":username, "visible":visible})
     if result.fetchone() != None:
         return True
     return False
