@@ -41,6 +41,7 @@ def find(time_from, time_to, query):
                 AND c.account_id=:id
             ORDER BY 
                 t.created_at,c.name,s.name DESC LIMIT 100'''
-    result=db.session.execute(sql, {"query":"%"+query+"%", "time_from":time_from, "time_to":time_to, "visible":visible, "id":id})
+    result=db.session.execute(sql, \
+        {"query":"%"+query+"%", "time_from":time_from, "time_to":time_to, "visible":visible, "id":id})
     transaction_list=result.fetchall()
     return transaction_list
