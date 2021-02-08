@@ -2,7 +2,7 @@
 
 {% block header %}
   {% block title %}Lisää tapahtuma{% endblock %}
-  <button type="button" class="btn btn-primary btn-sm" data-container="body" data-toggle="popover" data-placement="bottom" data-content="Summa pitää antaa numeroina ja luokka pitää valita. Lisätiedot ja kuva kuitista eivät ole pakollisia. Lisätietoihin voi tallettaa maksimissaan 250 merkkiä. Viimeisimmässä tapahtumissa näytetään kymmenen viimeistntä.">?</button>
+  <button type="button" class="btn btn-primary btn-sm" data-container="body" data-toggle="popover" data-placement="bottom" data-content="Summa pitää antaa numeroina ja luokka pitää valita. Lisätiedot ja kuva kuitista eivät ole pakollisia. Lisätietoihin voi tallettaa maksimissaan 250 merkkiä. Viimeisimmässä tapahtumissa näytetään kymmenen viimeisintä.">?</button>
 {% endblock %}
 
 {% block content_1 %}
@@ -11,6 +11,7 @@
         <label for="exampleFormControlInput1" class="col-sm-3">Summa <span style="color: red;">*</span></label>
         <div class="col">
             <input type="text" class="form-control form-control-sm w-100" name="amount">
+            <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
         </div>
     </div>
     <div class="form-group row">
