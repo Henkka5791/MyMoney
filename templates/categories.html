@@ -21,6 +21,7 @@
     </div>
     <div>
         <input class="btn btn-outline-secondary btn-sm" type="submit" value="Lisää">
+        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
     </div>
 </form>
 {% endblock %}
