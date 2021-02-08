@@ -10,6 +10,7 @@
     <div class="form-group">
         <label class="text-secondary">Vuosi (esim. 2021):</label>
         <input type="form-control-sm" name="year" class="text-secondary">
+        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
         <input class="btn btn-outline-secondary btn-sm" type="submit" value="Luo">
     </div>
 </form>
