@@ -5,15 +5,18 @@ from datetime import datetime,timedelta
 
 def set_days(year_and_month_from, year_and_month_to):
     if year_and_month_from == "":
-        year_and_month_from = str(datetime.today().year)+"-"+str(datetime.today().month)
+        year_and_month_from = \
+            str(datetime.today().year)+"-"+str(datetime.today().month)
     if year_and_month_to == "":
-        year_and_month_to = str(datetime.today().year)+"-"+str(datetime.today().month)
+        year_and_month_to = \
+            str(datetime.today().year)+"-"+str(datetime.today().month)
     time_from = datetime.strptime(year_and_month_from+"-"+"01",'%Y-%m-%d')
     parts = year_and_month_to.split("-")
     year_to = int(parts[0])
     month_to = int(parts[1])
     last_day = monthrange(year_to,month_to)
-    time_to = datetime.strptime(year_and_month_to+"-"+str(last_day[1])+" "+"23:59:59",'%Y-%m-%d %H:%M:%S')
+    time_to = datetime.strptime\
+        (year_and_month_to+"-"+str(last_day[1])+" "+"23:59:59",'%Y-%m-%d %H:%M:%S')
     if time_from > time_to:
         time_to = time_from + timedelta(days=30)
     return (time_from, time_to)
@@ -74,7 +77,8 @@ def monthly(year_and_month_from, year_and_month_to):
             WHERE 
                 b.period>=:time_from 
                 AND b.period<=:time_to'''
-    result = db.session.execute(sql, {"time_from":time_from, "time_to":time_to, "visible":visible, "id":id})
+    result = db.session.execute(sql,\
+        {"time_from":time_from, "time_to":time_to, "visible":visible, "id":id})
     monthly_results = result.fetchall()
     return monthly_results
 
@@ -132,7 +136,8 @@ def total_sum(year_and_month_from, year_and_month_to):
             WHERE 
                 b.period>=:time_from 
                 AND b.period<=:time_to'''
-    result = db.session.execute(sql, {"time_from":time_from, "time_to":time_to, "visible":visible, "id":id})
+    result = db.session.execute(sql,\
+        {"time_from":time_from, "time_to":time_to, "visible":visible, "id":id})
     total = result.fetchone()
     return total
 
@@ -161,6 +166,7 @@ def by_categories(day_from, day_to):
                 AND c.visible=:visible
                 AND s.visible=:visible 
             GROUP BY 1,2'''
-    result = db.session.execute(sql, {"id":id, "time_from":time_from, "time_to":time_to, "visible":visible})
+    result = db.session.execute(sql,\
+        {"id":id, "time_from":time_from, "time_to":time_to, "visible":visible})
     category_sums = result.fetchall()
     return category_sums
