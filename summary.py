@@ -18,7 +18,7 @@ def set_days(year_and_month_from, year_and_month_to):
     time_to = datetime.strptime\
         (year_and_month_to+"-"+str(last_day[1])+" "+"23:59:59",'%Y-%m-%d %H:%M:%S')
     if time_from > time_to:
-        time_to = time_from + timedelta(days=30)
+        time_from = time_to - timedelta(days=30)
     return (time_from, time_to)
 
 def monthly(year_and_month_from, year_and_month_to):
