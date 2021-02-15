@@ -1,7 +1,8 @@
 {% extends 'layout.html' %}
 
 {% block header %}
-  <h1>{% block title %}Yhteenveto{% endblock %}</h1>
+  {% block title %}Yhteenveto{% endblock %}
+  <button type="button" class="btn btn-primary btn-sm" data-container="body" data-toggle="popover" data-placement="bottom" data-content="Valitse ajanjakso, jolta haetaan tapahtumia. ">?</button>
 {% endblock %}
 
 {% block header_2 %}Valitse ajanjakso:{% endblock %}
