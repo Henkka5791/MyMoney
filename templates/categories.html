@@ -1,7 +1,8 @@
 {% extends 'layout.html' %}
 
 {% block header %}
-  <h1>{% block title %}Luokkien lisääminen ja hallinta{% endblock %}</h1>
+  {% block title %}Luokkien lisääminen ja hallinta{% endblock %}
+  <button type="button" class="btn btn-primary btn-sm" data-container="body" data-toggle="popover" data-placement="bottom" data-content="Luokan nimen pituus on maksimissaan 50 merkkiä.">?</button>
 {% endblock %}
 
 {% block header_2 %}Uuden pääluokan lisääminen{% endblock %}
