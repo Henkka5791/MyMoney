@@ -112,7 +112,7 @@ def transactions_view():
             return redirect("/transactions")
         else:
             return render_template("error.html",\
-                error="Tapahtuman lisäys ei onnistunut")
+                error="Tapahtuman lisäys ei onnistunut. Muistathan, että summa on pakollinen ja sen pitää olla luku. Lisäksi luokka pitää aina valita. ")
 
 @app.route("/transactions/<int:id>", methods=["GET", "POST"])
 def transaction_edit(id):
@@ -161,7 +161,7 @@ def budget_create():
             return redirect("/budgets")
         else:
             return render_template("error.html",\
-                error="Budjetin luonti ei onnistunut")
+                error="Budjetin luonti ei onnistunut. Muitstathan, että budjetti pitää olla vuosiluku ja ensimmäinen mahdollinen budjettivuosi on kuluvaa vuotta edeltävä vuosi ja viimeinen kuluva vuosi + 9 vuotta.")
 
 @app.route("/budgets/<int:year>",methods=["GET", "POST"])
 def budget_edit(year):
