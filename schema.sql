@@ -6,11 +6,10 @@ CREATE TABLE accounts (
     visible INTEGER DEFAULT 1 NOT NULL
 );
 
-CREATE TABLE budgets (
+CREATE TABLE pictures (
     id SERIAL PRIMARY KEY,
-    period DATE NOT NULL,
-    amount FLOAT DEFAULT 0 NOT NULL CHECK (amount >=0),
-    category_id INTEGER REFERENCES categories NOT NULL
+    data BYTEA NOT NULL,
+    visible INTEGER DEFAULT 1 NOT NULL
 );
 
 CREATE TABLE categories (
@@ -22,17 +21,11 @@ CREATE TABLE categories (
     picture_id INTEGER REFERENCES pictures
 );
 
-CREATE TABLE pictures (
+CREATE TABLE budgets (
     id SERIAL PRIMARY KEY,
-    data BYTEA NOT NULL,
-    visible INTEGER DEFAULT 1 NOT NULL
-);
-
-CREATE TABLE stores (
-    id SERIAL PRIMARY KEY,
-    name VARCHAR(50) NOT NULL,
-    visible integer DEFAULT 1 NOT NULL,
-    transactions_id INTEGER REFERENCES transactions NOT NULL
+    period DATE NOT NULL,
+    amount FLOAT DEFAULT 0 NOT NULL CHECK (amount >=0),
+    category_id INTEGER REFERENCES categories NOT NULL
 );
 
 CREATE TABLE transactions (
