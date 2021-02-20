@@ -1,10 +1,13 @@
 from db import db
 import categories,accounts
+import datetime
 
 def create_budget(year):
     category_list = categories.category_list()
     try:
         if year in budget_years():
+            return False
+        if year < datetime.datetime.now().year-1 or year > datetime.datetime.now().year+10:
             return False
         for category in category_list:
             for i in range(1,13):
