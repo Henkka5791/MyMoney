@@ -57,6 +57,8 @@ def add_category(name, outcome):
     account_id = accounts.user_id()
     if in_categories(name, account_id):
         return False
+    if len(name) > 50:
+        return False
     try:
         sql ='''INSERT INTO categories (name, outcome, account_id) 
                 VALUES (:name,:outcome,:account_id) RETURNING ID'''
@@ -96,6 +98,8 @@ def category_id(name):
 def add_subcategory(name, category_id):
     account_id = accounts.user_id()
     if in_subcategory(name, account_id):
+        return False
+    if len(name) > 50:
         return False
     try:
         sql ='''INSERT INTO subcategories(name,category_id) 
