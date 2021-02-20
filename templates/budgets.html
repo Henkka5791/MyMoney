@@ -1,7 +1,8 @@
 {% extends 'layout.html' %}
 
 {% block header %}
-  <h1>{% block title %}Budjetit{% endblock %}</h1>
+  {% block title %}Budjetit{% endblock %}
+  <button type="button" class="btn btn-primary btn-sm" data-container="body" data-toggle="popover" data-placement="bottom" data-content="Ensimmäinen budjettivuosi voi olla kuluvaa vuotta edellinen vuosi ja viimeinen budjetti voi olla kuluva vuosi + 9 vuotta.">?</button>
 {% endblock %}
 
 {% block header_2 %}Luo uusi vuosibudjetti{% endblock %}
