@@ -16,7 +16,6 @@ def login():
     password = request.form["password"]
     if accounts.login(username, password):
         session["csrf_token"] = os.urandom(16).hex()
-        print(session["csrf_token"])
         return redirect("/")
     else:
         flash(f"Väärä käyttäjätunnus tai salasana")
@@ -52,8 +51,6 @@ def category_view():
     if request.method == "POST":
         name = request.form["name"]
         outcome = request.form["outcome"]
-        print(session["csrf_token"])
-        print(request.form["csrf_token"])
         if session["csrf_token"] != request.form["csrf_token"]:
             abort(403)
         if categories.add_category(name, outcome):
