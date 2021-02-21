@@ -134,15 +134,12 @@ def valid_picture_id(transaction_id, picture_id):
     return picture_id
 
 def show_picture(id):
-    try:
-        sql = "SELECT data,visible FROM pictures WHERE id=:id"
-        result = db.session.execute(sql, {"id":id})
-        data = result.fetchone()[0]
-        response = make_response(bytes(data))
-        response.headers.set("Content-Type", "image/jpeg")
-        return response
-    except:
-        print("Ei onnistu")
+    sql = "SELECT data,visible FROM pictures WHERE id=:id"
+    result = db.session.execute(sql, {"id":id})
+    data = result.fetchone()[0]
+    response = make_response(bytes(data))
+    response.headers.set("Content-Type", "image/jpeg")
+    return response
 
 def amount_validate(amount, subcategory_id):
     amount = amount.replace(",",".")
