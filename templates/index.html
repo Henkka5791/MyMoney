@@ -50,11 +50,11 @@
 
 {% else %}
 <form id="login-form" action="/login" method="POST">
-    <label for="username">Käyttäjänimi:</label>
-    <input type="text" name="username">
-    <label for="password">Salasana:</label>
-    <input type="password" name="password">
-    <input id="login-button" type="submit" value="Kirjaudu">
+    <label for="username">Käyttäjänimi:</label><br>
+    <input type="text" name="username"><br>
+    <label for="password">Salasana:</label><br>
+    <input type="password" name="password"><br>
+    <input id="login-button" type="submit" value="Kirjaudu"><br>
 </form>
 Tai <a href="/register">rekisteröidy</a><br><br>
 {% for message in get_flashed_messages() %}
