@@ -14,5 +14,5 @@ Käyttöohje:
 
 Jos et halua luoda omia tunnuksia, voit kokeilla ohjelmaa seuraavilla tunnuksilla:
 KT: mikki
-SS: mikkihiiri
+SS: mikkihiiri. 
 Mikille on syötetty tapahtumia vuodelle 2020.
