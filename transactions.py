@@ -4,7 +4,7 @@ from flask import make_response
 
 def add(subcategory_id, amount, description, data, name):
     amount = amount_validate(amount, subcategory_id)
-    if description == "Maksimi 250":
+    if description == "Maksimi 100":
         description = ""
     if len(description) > 100:
         return False
