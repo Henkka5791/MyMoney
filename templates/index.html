@@ -49,7 +49,6 @@
 {% endblock %}
 
 {% else %}
-<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
 <form id="login-form" action="/login" method="POST">
     <label for="username">Käyttäjänimi:</label>
     <input type="text" name="username">
