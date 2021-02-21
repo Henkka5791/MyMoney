@@ -6,6 +6,8 @@ def add(subcategory_id, amount, description, data, name):
     amount = amount_validate(amount, subcategory_id)
     if description == "Maksimi 250":
         description = ""
+    if len(description) > 100:
+        return False
     if len(data) == 0:
         try:
             sql = "INSERT INTO transactions(description,amount,created_at,subcategory_id) VALUES(:description, :amount, NOW(),:subcategory_id)"
