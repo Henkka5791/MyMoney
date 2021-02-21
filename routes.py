@@ -1,5 +1,4 @@
 from app import app
-import os
 from flask import redirect, render_template, request, session, make_response,flash, abort
 import accounts
 import categories, transactions, budgets, summary, search
@@ -15,7 +14,6 @@ def login():
     username = request.form["username"]
     password = request.form["password"]
     if accounts.login(username, password):
-        session["csrf_token"] = os.urandom(16).hex()
         return redirect("/")
     else:
         flash(f"Väärä käyttäjätunnus tai salasana")
