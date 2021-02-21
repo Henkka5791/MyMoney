@@ -31,11 +31,11 @@ CREATE TABLE budgets (
 CREATE TABLE transactions (
     id SERIAL PRIMARY KEY,
     description VARCHAR(100),
-    amount FLOAT NOT NULL CHECK (amount >= 0),
+    amount FLOAT NOT NULL,
     created_at TIMESTAMP NOT NULL,
     visible INTEGER DEFAULT 1 NOT NULL,
     picture_id INTEGER REFERENCES pictures,
-    category_id INTEGER REFERENCES categories NOT NULL
+    subcategory_id INTEGER REFERENCES subcategories NOT NULL
 );
 
 CREATE TABLE subcategories (
