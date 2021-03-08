@@ -2,6 +2,22 @@ from db import db
 import accounts
 from flask import make_response 
 
+def all_years():
+    id = accounts.user_id()
+    sql = '''SELECT DISTINCT EXTRACT(YEAR FROM created_at) 
+             FROM TRANSACTIONS t, SUBCATEGORIES s, CATEGORIES c, ACCOUNTS a
+             WHERE 
+                a.id = :id AND 
+                c.account_id = a.id 
+                AND s.category_id = c.id 
+                AND t.subcategory_id = s.id 
+                AND t.visible = 1'''
+    result = db.session.execute(sql,{"id":id})
+    years = result.fetchall()
+    for i in range(len(years)):
+        years[i] = int(years[i][0])
+    return years
+
 def add(subcategory_id, amount, description, data, name):
     amount = amount_validate(amount, subcategory_id)
     if description == "Maksimi 100":
