@@ -1,6 +1,7 @@
 from db import db
 import accounts
-from flask import make_response 
+from flask import make_response
+import datetime
 
 def all_years():
     id = accounts.user_id()
@@ -16,6 +17,9 @@ def all_years():
     years = result.fetchall()
     for i in range(len(years)):
         years[i] = int(years[i][0])
+    if len(years) == 0:
+        time = datetime.datetime.now()
+        years.append(time.strftime("%Y"))
     return years
 
 def add(subcategory_id, amount, description, data, name):
