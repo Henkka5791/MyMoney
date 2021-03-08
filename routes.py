@@ -182,17 +182,28 @@ def budget_edit(year):
 @app.route("/summary")
 def summary_result():
     try:
-        time_from = request.args["time_from"]
-        time_to = request.args["time_to"]
+        month_from = request.args["month_from"]
+        year_from =request.args["year_from"]
+        month_to = request.args["month_to"]
+        year_to =request.args["year_to"]
+        time_from = summary.set_days(month_from,year_from,month_to,year_to)[0]
+        time_to = summary.set_days(month_from,year_from,month_to,year_to)[1]
         monthly_result = summary.monthly(time_from,time_to)
         total = summary.total_sum(time_from,time_to)
         by_categories = summary.by_categories(time_from,time_to)
-        times = summary.set_days(time_from,time_to)
+        years = transactions.all_years()
+        months = []
+        for i in range(1,13):
+            months.append(i)
         return render_template("summary.html",\
-            monthly_result=monthly_result, total=total, by_categories=by_categories, time_from=times[0], time_to=times[1])
+            monthly_result=monthly_result, total=total, by_categories=by_categories, time_from=time_from, time_to=time_to, years=years, months=months)
     except:
+        years = transactions.all_years()
+        months = []
+        for i in range(1,13):
+            months.append(i)
         return render_template("summary.html",\
-            monthly_result=[], total=[], time_from="", time_to="")
+            monthly_result=[], total=[], time_from="", time_to="", years=years, months=months)
 
 @app.route("/transactions/pictures/<int:id>/show")
 def show(id): 
