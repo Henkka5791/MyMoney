@@ -50,8 +50,8 @@ def monthly(time_from, time_to):
                     EXTRACT(year FROM b.period) AS year,
                     EXTRACT(month FROM b.period) AS month, 
                     b.period AS period,
-                    sum(CASE WHEN c.outcome=0 THEN b.amount ELSE 0 END) AS budget_income,
-                    sum(CASE WHEN c.outcome=1 THEN b.amount ELSE 0 END) AS budget_outcome 
+                    ROUND(sum(CASE WHEN c.outcome=0 THEN b.amount ELSE 0 END)::numeric,2) AS budget_income,
+                    ROUND(sum(CASE WHEN c.outcome=1 THEN b.amount ELSE 0 END)::numeric,2) AS budget_outcome  
                 FROM 
                     budgets b, 
                     categories c 
@@ -87,7 +87,7 @@ def total_sum(time_from, time_to):
                     EXTRACT(year FROM t.created_at) AS year,
                     EXTRACT(month FROM t.created_at) AS month,
                     ROUND(SUM(CASE WHEN t.amount > 0 THEN t.amount ELSE 0 END)::numeric,2) AS income,
-                    ROUND(SUM(CASE WHEN t.amount < 0 THEN t.amount ELSE 0 END)::numeric,2) AS outcome 
+                    ROUND(SUM(CASE WHEN t.amount < 0 THEN t.amount ELSE 0 END)::numeric,2) AS outcome
                 FROM    
                     transactions t,
                     subcategories s,
