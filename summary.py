@@ -3,29 +3,18 @@ import accounts
 from calendar import monthrange
 from datetime import datetime,timedelta
 
-def set_days(year_and_month_from, year_and_month_to):
-    if year_and_month_from == "":
-        year_and_month_from = \
-            str(datetime.today().year)+"-"+str(datetime.today().month)
-    if year_and_month_to == "":
-        year_and_month_to = \
-            str(datetime.today().year)+"-"+str(datetime.today().month)
-    time_from = datetime.strptime(year_and_month_from+"-"+"01",'%Y-%m-%d')
-    parts = year_and_month_to.split("-")
-    year_to = int(parts[0])
-    month_to = int(parts[1])
-    last_day = monthrange(year_to,month_to)
+def set_days(month_from, year_from, month_to, year_to):
+    time_from = datetime.strptime(year_from+"-"+month_from+"-"+"01",'%Y-%m-%d')
+    last_day = monthrange(int(year_to),int(month_to))
     time_to = datetime.strptime\
-        (year_and_month_to+"-"+str(last_day[1])+" "+"23:59:59",'%Y-%m-%d %H:%M:%S')
+        (year_to+"-"+month_to+"-"+str(last_day[1])+" "+"23:59:59",'%Y-%m-%d %H:%M:%S')
     if time_from > time_to:
         time_from = time_to - timedelta(days=30)
+    print(time_from)
     return (time_from, time_to)
 
-def monthly(year_and_month_from, year_and_month_to):
+def monthly(time_from, time_to):
     id = accounts.user_id()
-    times = set_days(year_and_month_from, year_and_month_to)
-    time_from = times[0]
-    time_to = times[1]
     visible = 1
     sql = '''SELECT 
                 b.year::numeric::integer,
@@ -82,11 +71,8 @@ def monthly(year_and_month_from, year_and_month_to):
     monthly_results = result.fetchall()
     return monthly_results
 
-def total_sum(year_and_month_from, year_and_month_to):
+def total_sum(time_from, time_to):
     id = accounts.user_id()
-    times = set_days(year_and_month_from, year_and_month_to)
-    time_from = times[0]
-    time_to = times[1]
     visible = 1
     sql = '''SELECT 
                 count(b.month),
@@ -141,11 +127,8 @@ def total_sum(year_and_month_from, year_and_month_to):
     total = result.fetchone()
     return total
 
-def by_categories(day_from, day_to):
+def by_categories(time_from, time_to):
     id = accounts.user_id()
-    times = set_days(day_from, day_to)
-    time_from = times[0]
-    time_to = times[1]
     visible = 1
     sql ='''SELECT 
                 c.name,
