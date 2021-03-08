@@ -22,15 +22,18 @@ def first_and_last():
 def find(time_from, time_to, query):
     id = accounts.user_id()
     visible = 1
+    query = "%"+query+"%"
+    query = query.upper()
+    print(query)
     sql ='''SELECT 
                 t.created_at,ROUND(t.amount::numeric,2),c.name,s.name,t.description,t.id,p.id,p.visible 
             FROM 
                 categories c,subcategories s,transactions t 
             LEFT JOIN pictures p ON p.id=t.picture_id 
             WHERE
-                (UPPER(t.description) LIKE UPPER(:query)
-                OR UPPER(c.name) LIKE UPPER(:query)
-                OR UPPER(s.name) LIKE UPPER(:query))
+                (UPPER(t.description) LIKE :query
+                OR UPPER(c.name) LIKE :query
+                OR UPPER(s.name) LIKE :query)
                 AND t.created_at>=:time_from
                 AND t.created_at<=:time_to 
                 AND t.visible=:visible 
