@@ -223,12 +223,12 @@ def view_search():
         time_from = request.args["time_from"]
         time_to = request.args["time_to"]
         if time_from == "":
-            time_from = datetime.now()-timedelta(days=30)
+            time_from = search.first_and_last()[0]
         else:
             time_from = time_from+" "+"00:00:00"
             time_from = datetime.strptime(time_from, "%Y-%m-%d %H:%M:%S")
         if time_to == "":
-            time_to = datetime.now()
+            time_to = search.first_and_last()[1]
         else:
             time_to = request.args["time_to"]+" "+"23:59:59"
             time_to = datetime.strptime(time_to, "%Y-%m-%d %H:%M:%S")
